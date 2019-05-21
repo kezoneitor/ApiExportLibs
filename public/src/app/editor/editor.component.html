@@ -2,12 +2,22 @@
   <h1>Editor</h1>
   <div class="editor">
     <mat-form-field>
-      <input matInput placeholder="Nombre" />
+      <input style="width: 40%" [(ngModel)]="functionName" matInput placeholder="Nombre" (ngModelChange)="updateView()" />
+    </mat-form-field>
+    <mat-form-field>
+      <input style="width: 50%" [(ngModel)]="parametros" matInput placeholder="Parametros (separados por coma)" (ngModelChange)="updateView()" />
     </mat-form-field>
 
-    <mat-form-field>
-      <textarea matInput placeholder="Código" style="height: 50vh"></textarea>
-    </mat-form-field>
+    <ngx-codemirror
+      [(ngModel)]="codeView"
+      [options]="{
+        lineNumbers: true,
+        theme: 'material',
+        mode: 'javascript'
+      }"
+      (ngModelChange)="codeUpdate($event)"
+    >
+    </ngx-codemirror>
 
     <mat-form-field>
       <textarea matInput placeholder="Descripción"></textarea>
