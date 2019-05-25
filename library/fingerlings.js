@@ -1,5 +1,8 @@
 'use strict'
 
+//Insertar la función en forma de string para utilizarla como función de validar repetición de funciones
+var check;
+
 /**
  * 
  * @param {codigo para agregar código} code
@@ -8,13 +11,17 @@
  * llegado texto(verificar que sea codigo js) y crea una etiqueta script con el código dentro 
  * y lo agrega al head y si no existe lo crea para agregar el script
  */
-function implement_lib(code) {
+function implement_lib(code, check) {
       let xhttp = new XMLHttpRequest();
-      xhttp.open("GET", `http://localhost/fingerlings_search.php?code=${code}`, true);
+      let url = `http://leoviquez.com:8080/fingerlings/?code=${code}`;
+      let url = `http://localhost/fingerlings/?code=${code}`;
+      url += (check != undefined) ? `&check=${check}` : "";
+      xhttp.open("GET", url, true);
       xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                   if (this.responseText != "") {
                         var script = document.createElement("script");
+                        script.setAttribute('type', 'module');
                         script.innerHTML = this.responseText;
                         if (document.getElementsByTagName("head") != undefined) {
                               document.getElementsByTagName("head")[0].appendChild(script);
@@ -28,6 +35,7 @@ function implement_lib(code) {
       };
       xhttp.send();
 }
+
 /**
  *
  * @param {string} code
@@ -40,7 +48,7 @@ function implement_lib(code) {
 function search_deps(code) {
       var deps;
       let xhttp = new XMLHttpRequest();
-      xhttp.open("GET", `http://localhost/fingerlings_search.php?dependencies=${code}`, false);
+      xhttp.open("GET", `http://leoviquez.com:8080/fingerlings/?dependencies=${code}`, false);
       xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                   if (this.responseText != "" && this.responseText != "{}") {
@@ -57,7 +65,7 @@ function search_deps(code) {
 
 /**
  * 
- * @param  {...any} codes 
+ * @param  {...string} codes 
  * @description
  * Busca todas las dependencias para crear una lista de códigos
  * los cuales se ejecutan para ser creados en la página
@@ -68,7 +76,7 @@ function fingerlings(...codes) {
        *    En la recursiva envía una lista con la lista de parametros
        *    por lo que se iguala a el mismo en la posición "0"
        */
-      if(typeof codes[0] == 'object'){
+      if (typeof codes[0] == 'object') {
             codes = codes[0];
       }
       //lista de dependencias encontradas
@@ -104,7 +112,7 @@ function fingerlings(...codes) {
       //Cuando ya no existen más dependencias nuevas crea las funciones de la lista de codigos
       else {
             codes.forEach(code => {
-                  implement_lib(code);
-            });        
+                  implement_lib(code, check);
+            });
       }
 }
