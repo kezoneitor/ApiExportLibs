@@ -14,7 +14,7 @@ var check;
 function implement_lib(code, check) {
       let xhttp = new XMLHttpRequest();
       let url = `http://leoviquez.com:8080/fingerlings/?code=${code}`;
-      let url = `http://localhost/fingerlings/?code=${code}`;
+      //let url = `http://localhost/fingerlings/?code=${code}`;
       url += (check != undefined) ? `&check=${check}` : "";
       xhttp.open("GET", url, true);
       xhttp.onreadystatechange = function () {
@@ -49,6 +49,7 @@ function search_deps(code) {
       var deps;
       let xhttp = new XMLHttpRequest();
       xhttp.open("GET", `http://leoviquez.com:8080/fingerlings/?dependencies=${code}`, false);
+      //xhttp.open("GET", `http://localhost/fingerlings/?dependencies=${code}`, false);
       xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                   if (this.responseText != "" && this.responseText != "{}") {
