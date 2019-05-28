@@ -6,15 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit {
-  Object = Object;
-  functionName: String = "suma";
-  function: String = "return x + y;";
-  parametros: String = "x,y";
+
+  functionName: String = "";
+  function: String = "";
+  parametros: String = "";
   codeView = "";
-  dependencias: object = { 0: "dependencia 1" };
-  etiquetas = "math simple";
-  descripcion = "suma dos valores";
-  depID = "";
+
   constructor() {
     this.updateView();
   }
@@ -43,26 +40,5 @@ export class EditorComponent implements OnInit {
     setTimeout(() => {
       this.updateView();
     }, 0)
-  }
-  removeDep(dependencia) {
-    delete (this.dependencias[dependencia]);
-  }
-  send() {
-    let data = {
-      name: this.functionName,
-      params: this.parametros.replace(' ', '').split(','),
-      code: this.function,
-      desc: this.descripcion,
-      tags: this.etiquetas.split(' '),
-      dependencies: Object.keys(this.dependencias),
-      username: "",
-    }
-    console.log(data);
-  }
-  addDep() {
-    if (this.depID != "" && !this.dependencias[this.depID]) {
-      this.dependencias[this.depID] = "Nombre generico"
-      this.depID = "";
-    }
   }
 }
