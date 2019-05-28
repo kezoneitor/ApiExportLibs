@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import {  } from '@angular/common/http';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
@@ -18,6 +20,8 @@ import { EditorComponent } from './editor/editor.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GalleryComponent } from './gallery/gallery.component';
 
+import { LingsService } from './services/lings.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,9 +39,10 @@ import { GalleryComponent } from './gallery/gallery.component';
     MatInputModule,
     MatIconModule,
     FormsModule,
-    CodemirrorModule
+    CodemirrorModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [LingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
