@@ -8,8 +8,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import 'codemirror/mode/javascript/javascript';
@@ -19,13 +21,16 @@ import { AppComponent } from './app.component';
 import { EditorComponent } from './editor/editor.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GalleryComponent } from './gallery/gallery.component';
+import { FunctionViewComponent } from './function-view/function-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EditorComponent,
-    GalleryComponent
+    GalleryComponent,
+    FunctionViewComponent
   ],
+  entryComponents: [FunctionViewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -39,7 +44,9 @@ import { GalleryComponent } from './gallery/gallery.component';
     FormsModule,
     CodemirrorModule,
     MatButtonModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

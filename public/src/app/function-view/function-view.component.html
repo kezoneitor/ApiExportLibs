@@ -1,0 +1,36 @@
+<h3>{{ data.name }}</h3>
+<i>{{ data.desc }}</i>
+<ngx-codemirror
+  [(ngModel)]="data.fullcode"
+  [disabled]="true"
+  [options]="{
+    lineNumbers: true,
+    theme: 'material',
+    mode: 'javascript'
+  }"
+  id="view"
+  style="margin-bottom: 5%"
+></ngx-codemirror>
+<h3 *ngIf="(data.tags == '' ? [] : data.tags.split(' ')).length != 0">Tags</h3>
+<mat-card
+  *ngFor="let item of data.tags == '' ? [] : data.tags.split(' ')"
+  style="width:fit-content;background-color:lightgray; margin: 1%; padding:7.5px; display: inline-block;"
+>
+  {{ item }}
+</mat-card>
+<h3 *ngIf="Object.keys(data.deps).length != 0">Dependencias:</h3>
+
+<mat-card
+  *ngFor="let item of Object.keys(data.deps)"
+  style="width:fit-content;background-color:lightgray;cursor:pointer; margin: 1%; padding:7.5px; display: inline-block;"
+  (click)="dependencia(item)"
+>
+  {{ data.deps[item] }}
+</mat-card>
+<br />
+<button mat-button style="margin-left: auto; display: flex" color="primary" (click)="copyFn()">
+  Copiar Sólo Función
+</button>
+<button mat-button style="margin-left: auto; display: flex" color="primary">
+  Compilar librería
+</button>
