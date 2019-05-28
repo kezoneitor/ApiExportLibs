@@ -39,6 +39,8 @@ import { LingsService } from './services/lings.service';
     MatInputModule,
     MatIconModule,
     FormsModule,
+    MatButtonModule,
+    MatBadgeModule,
     CodemirrorModule,
     HttpClientModule,
   ],
