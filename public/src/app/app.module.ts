@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import {  } from '@angular/common/http';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
@@ -23,6 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GalleryComponent } from './gallery/gallery.component';
 import { FunctionViewComponent } from './function-view/function-view.component';
 
+import { LingsService } from './services/lings.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,13 +46,13 @@ import { FunctionViewComponent } from './function-view/function-view.component';
     MatInputModule,
     MatIconModule,
     FormsModule,
-    CodemirrorModule,
     MatButtonModule,
     MatBadgeModule,
     MatDialogModule,
     MatSnackBarModule
+    HttpClientModule
   ],
-  providers: [],
+  providers: [LingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
