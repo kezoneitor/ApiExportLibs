@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { FunctionViewComponent, functionData } from '../function-view/function-view.component';
+import { FunctionViewComponent, functionData, getColor, contrast } from '../function-view/function-view.component';
 
 interface requestdata {
   name: string,
@@ -18,6 +18,8 @@ interface requestdata {
 })
 export class EditorComponent implements OnInit {
   Object = Object;
+  contrast = contrast;
+  getColor = getColor;
   editor: functionData = {
     name: "suma",
     desc: "suma dos valores",

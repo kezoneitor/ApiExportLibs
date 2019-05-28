@@ -72,15 +72,18 @@
       </i>
     </span>
     <span style="display: inline-block">
-      <mat-card
-        *ngFor="let item of Object.keys(editor.deps)"
-        matBadge="x"
-        matBadgeColor="accent"
-        style="width:fit-content;background-color:lightgray;cursor:pointer; margin: 1%; padding:7.5px; display: inline-block;"
-        (click)="removeDep(item)"
-      >
-        {{ editor.deps[item] }}
-      </mat-card>
+      <span *ngFor="let item of Object.keys(editor.deps)">
+        <mat-card
+          [style.background-color]="getColor(editor.deps[item])"
+          [style.color]="contrast(editor.deps[item])"
+          matBadge="x"
+          matBadgeColor="accent"
+          style="width:fit-content;background-color:lightgray;cursor:pointer; margin: 1%; padding:7.5px; display: inline-block;"
+          (click)="removeDep(item)"
+        >
+          {{ editor.deps[item] }}
+        </mat-card>
+      </span>
     </span>
     <button
       mat-raised-button

@@ -49,8 +49,9 @@ import { LingsService } from './services/lings.service';
     MatButtonModule,
     MatBadgeModule,
     MatDialogModule,
-    MatSnackBarModule
-    HttpClientModule
+    MatSnackBarModule,
+    HttpClientModule,
+    CodemirrorModule
   ],
   providers: [LingsService],
   bootstrap: [AppComponent]

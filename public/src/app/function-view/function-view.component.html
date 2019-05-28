@@ -1,5 +1,7 @@
-<h3>{{ data.name }}</h3>
-<i>{{ data.desc }}</i>
+<h3>Función: {{ data.name }}</h3>
+<mat-card style="background-color: whitesmoke;margin-bottom: 2%;padding: 5px">
+  <i>{{ data.desc }}</i>
+</mat-card>
 <ngx-codemirror
   [(ngModel)]="data.fullcode"
   [disabled]="true"
@@ -12,23 +14,33 @@
   style="margin-bottom: 5%"
 ></ngx-codemirror>
 <h3 *ngIf="(data.tags == '' ? [] : data.tags.split(' ')).length != 0">Tags</h3>
-<mat-card
-  *ngFor="let item of data.tags == '' ? [] : data.tags.split(' ')"
-  style="width:fit-content;background-color:lightgray; margin: 1%; padding:7.5px; display: inline-block;"
->
-  {{ item }}
-</mat-card>
+<span *ngFor="let item of data.tags == '' ? [] : data.tags.split(' ')">
+  <mat-card
+    [style.background-color]="getColor(item)"
+    [style.color]="contrast(item)"
+    style="width:fit-content;background-color:lightgray; margin: 1%; padding:7.5px; display: inline-block;"
+  >
+    {{ item }}
+  </mat-card>
+</span>
 <h3 *ngIf="Object.keys(data.deps).length != 0">Dependencias:</h3>
-
-<mat-card
-  *ngFor="let item of Object.keys(data.deps)"
-  style="width:fit-content;background-color:lightgray;cursor:pointer; margin: 1%; padding:7.5px; display: inline-block;"
-  (click)="dependencia(item)"
->
-  {{ data.deps[item] }}
-</mat-card>
+<span *ngFor="let item of Object.keys(data.deps)">
+  <mat-card
+    [style.background-color]="getColor(data.deps[item])"
+    [style.color]="contrast(data.deps[item])"
+    style="width:fit-content;background-color:lightgray;cursor:pointer; margin: 1%; padding:7.5px; display: inline-block;"
+    (click)="dependencia(item)"
+  >
+    {{ data.deps[item] }}
+  </mat-card>
+</span>
 <br />
-<button mat-button style="margin-left: auto; display: flex" color="primary" (click)="copyFn()">
+<button
+  mat-button
+  style="margin-left: auto; display: flex"
+  color="primary"
+  (click)="copyFn()"
+>
   Copiar Sólo Función
 </button>
 <button mat-button style="margin-left: auto; display: flex" color="primary">
