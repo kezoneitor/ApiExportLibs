@@ -2,11 +2,9 @@
   <mat-toolbar color="primary">
     <span>Fingerlings</span>
     <span style="flex: 1 1 auto"></span>
-    <mat-icon
-      aria-hidden="false"
-      aria-label="Example user verified icon"
-      >perm_identity</mat-icon
-    >
+    <button mat-icon-button id="log_icon" (click)="openDialog()">
+      <mat-icon aria-hidden="false" aria-label="User verified icon">perm_identity</mat-icon>
+    </button>
   </mat-toolbar>
   <section style="padding: 1%">
     <app-editor
