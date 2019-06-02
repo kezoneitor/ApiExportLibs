@@ -13,7 +13,9 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
+
 
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import 'codemirror/mode/javascript/javascript';
@@ -26,13 +28,15 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { FunctionViewComponent } from './function-view/function-view.component';
 
 import { LingsService } from './services/lings.service';
+import { SearchLibComponent } from './search-lib/search-lib.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EditorComponent,
     GalleryComponent,
-    FunctionViewComponent
+    FunctionViewComponent,
+    SearchLibComponent
   ],
   entryComponents: [FunctionViewComponent],
   imports: [
@@ -51,6 +55,7 @@ import { LingsService } from './services/lings.service';
     MatDialogModule,
     MatSnackBarModule,
     HttpClientModule,
+    MatSelectModule,
     CodemirrorModule
   ],
   providers: [LingsService],
