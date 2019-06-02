@@ -2,14 +2,26 @@
   <h1>Editor</h1>
   <div class="editor">
     <mat-form-field>
-      <input style="width: 40%" [(ngModel)]="functionName" matInput placeholder="Nombre" (ngModelChange)="updateView()" />
+      <input
+        style="width: 40%"
+        [(ngModel)]="editor.name"
+        matInput
+        placeholder="Nombre"
+        (ngModelChange)="updateView()"
+      />
     </mat-form-field>
     <mat-form-field>
-      <input style="width: 50%" [(ngModel)]="parametros" matInput placeholder="Parametros (separados por coma)" (ngModelChange)="updateView()" />
+      <input
+        style="width: 50%;"
+        [(ngModel)]="editor.params"
+        matInput
+        placeholder="Parametros (separados por coma)"
+        (ngModelChange)="updateView()"
+      />
     </mat-form-field>
 
     <ngx-codemirror
-      [(ngModel)]="codeView"
+      [(ngModel)]="editor.fullcode"
       [options]="{
         lineNumbers: true,
         theme: 'material',
@@ -20,8 +32,73 @@
     </ngx-codemirror>
 
     <mat-form-field>
-      <textarea matInput placeholder="Descripción"></textarea>
+      <textarea
+        matInput
+        placeholder="Descripción"
+        [(ngModel)]="editor.desc"
+      ></textarea>
     </mat-form-field>
-    <h2>Dependencias:</h2>
+    <mat-form-field>
+      <input
+        style="width: 50%"
+        [(ngModel)]="editor.tags"
+        matInput
+        placeholder="Etiquetas (separadas por espacio)"
+      />
+    </mat-form-field>
+    <h2 style="width: fit-content; margin: 2%">Dependencias:</h2>
+    <span style="display: flex">
+      <input
+        style="display: inline-block;width: 70%"
+        [(ngModel)]="depID"
+        matInput
+        placeholder="ID De funcion"
+      />
+      <button
+        mat-raised-button
+        style="width:auto; margin: 2%; margin-left: auto"
+        (click)="addDep()"
+      >
+        Añadir
+      </button>
+    </span>
+    <span
+      *ngIf="Object.keys(editor.deps).length == 0"
+      style="text-align: center"
+    >
+      <i style="color: grey">
+        Recuerde añadir las dependencias requeridas
+      </i>
+    </span>
+    <span style="display: inline-block">
+      <span *ngFor="let item of Object.keys(editor.deps)">
+        <mat-card
+          [style.background-color]="getColor(editor.deps[item])"
+          [style.color]="contrast(editor.deps[item])"
+          matBadge="x"
+          matBadgeColor="accent"
+          style="width:fit-content;background-color:lightgray;cursor:pointer; margin: 1%; padding:7.5px; display: inline-block;"
+          (click)="removeDep(item)"
+        >
+          {{ editor.deps[item] }}
+        </mat-card>
+      </span>
+    </span>
+    <button
+      mat-raised-button
+      (click)="preview()"
+      color="accent"
+      style="margin: 2%"
+    >
+      Vista Previa
+    </button>
+    <button
+      mat-raised-button
+      (click)="send()"
+      color="primary"
+      style="margin: 2%"
+    >
+      Enviar
+    </button>
   </div>
 </section>

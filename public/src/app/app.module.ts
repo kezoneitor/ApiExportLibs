@@ -14,6 +14,10 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
+
+
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import 'codemirror/mode/javascript/javascript';
 
@@ -22,8 +26,10 @@ import { AppComponent } from './app.component';
 import { EditorComponent } from './editor/editor.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GalleryComponent } from './gallery/gallery.component';
+import { FunctionViewComponent } from './function-view/function-view.component';
 
 import { LingsService } from './services/lings.service';
+import { SearchLibComponent } from './search-lib/search-lib.component';
 import { LogModalComponent } from './gallery/log-modal/log-modal.component';
 
 const firebaseConfig = {
@@ -41,8 +47,11 @@ const firebaseConfig = {
     AppComponent,
     EditorComponent,
     GalleryComponent,
+    FunctionViewComponent,
+    SearchLibComponent
     LogModalComponent,
   ],
+  entryComponents: [FunctionViewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -61,6 +70,8 @@ const firebaseConfig = {
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule
+    MatSnackBarModule,
+    MatSelectModule,
   ],
   providers: [
     LingsService,
