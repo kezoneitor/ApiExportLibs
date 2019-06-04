@@ -16,6 +16,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
@@ -30,10 +32,10 @@ import { FunctionViewComponent } from './function-view/function-view.component';
 
 import { LingsService } from './services/lings.service';
 import { SearchLibComponent } from './search-lib/search-lib.component';
-import { LogModalComponent } from './gallery/log-modal/log-modal.component';
+import { LogModalComponent } from './log-modal/log-modal.component';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB-IiIGOS8F2Q1DzNbMvGr61Z15wa-dYps",
+  apiKey: "AIzaSyCAZuZg6PIcormNxQ7wm2Td3ViXTLa3XWM",
   authDomain: "webfingerlings.firebaseapp.com",
   databaseURL: "https://webfingerlings.firebaseio.com",
   projectId: "webfingerlings",
@@ -48,10 +50,10 @@ const firebaseConfig = {
     EditorComponent,
     GalleryComponent,
     FunctionViewComponent,
-    SearchLibComponent
+    SearchLibComponent,
     LogModalComponent,
   ],
-  entryComponents: [FunctionViewComponent],
+  entryComponents: [FunctionViewComponent, LogModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -66,17 +68,18 @@ const firebaseConfig = {
     MatButtonModule,
     MatBadgeModule,
     MatDialogModule,
+    MatGridListModule,
+    MatPaginatorModule,
     CodemirrorModule,
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
     MatSnackBarModule,
     MatSelectModule,
   ],
   providers: [
     LingsService,
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [LogModalComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

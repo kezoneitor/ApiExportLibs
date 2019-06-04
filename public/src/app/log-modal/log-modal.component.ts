@@ -1,6 +1,6 @@
 import { Component, OnInit, /*Inject*/ } from '@angular/core';
 import { MatDialogRef, /*MAT_DIALOG_DATA*/ } from '@angular/material';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 //import { User } from '../../models/User';
 //Lo comentado funciona para implementar paso de Datos
@@ -23,14 +23,18 @@ export class LogModalComponent implements OnInit {
   }
 
   signInWithGoogle(): void {
-    this.authService.loginWithGoogle();
+    this.authService.loginWithGoogle().then(()=>{
+      this.dialogRef.close(this.authService.isLoggedIn);
+    });
   }
 
   signInWithFB(): void {
-    this.authService.loginWithFacebook();
+    this.authService.loginWithFacebook().then(() => {
+      this.dialogRef.close(this.authService.isLoggedIn);
+    });
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(this.authService.isLoggedIn);
   }
 }
