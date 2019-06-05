@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { LingsService } from '../services/lings.service';
 export interface functionData {
   name: string,
   code: string,
@@ -53,7 +54,8 @@ export class FunctionViewComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<FunctionViewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: functionData,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    public lingsAPI: LingsService) {
     data.code = data.code || "";
     data.deps = data.deps || {};
     data.desc = data.desc || "";
@@ -61,16 +63,27 @@ export class FunctionViewComponent implements OnInit {
     data.name = data.name || "";
     data.params = data.params || "";
     data.tags = data.tags || "";
-    if (data.id != "" && data.id) {
+    if (data.id && data.id != "") {
       this.loadView(data.id);
     }
-    console.log(data);
   }
   loadView(id) {
     //Aquí cargo los datos de la función
+    this.lingsAPI.getCode(id)
+      .then((code) => {
+        this.data.fullcode = code[3];
+        this.data.desc = code[1];
+        this.data.name = code[2];
+
+        this.data.tags =((code[5].substr(1, code[5].length - 2)).split(",")).join(" ");
+        console.log(this.data)
+      })
+      .catch((error) => {
+        console.log("Hubo un error")
+        this.snackBar.open(JSON.stringify(error), "Ok", { duration: 10000 })
+      })
   }
   dependencia(dep) {
-    console.log(dep);
 
     const dialogRef = this.dialog.open(FunctionViewComponent, {
       width: '50vw',
