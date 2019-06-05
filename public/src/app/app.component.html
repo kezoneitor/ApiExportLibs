@@ -2,18 +2,23 @@
   <mat-toolbar color="primary">
     <span>Fingerlings</span>
     <span style="flex: 1 1 auto"></span>
-    <mat-icon
-      aria-hidden="false"
-      aria-label="Example user verified icon"
-      >perm_identity</mat-icon
-    >
+    <app-search-lib></app-search-lib>
+    <button mat-icon-button id="log_icon" (click)="openDialog()" *ngIf="!is_login">
+      <mat-icon aria-hidden="false" aria-label="User verified icon" >perm_identity</mat-icon>
+    </button>
+    <button mat-icon-button id="log_icon" (click)="logout()" *ngIf="is_login">
+      <mat-card-header _ngcontent-hpu-c6="" class="mat-card-header">
+        <div _ngcontent-hpu-c6="" class="photo" [ngStyle]="{'background-image': user !== undefined ? 'url(\''+user.photoURL+'\')' : ''}" mat-card-avatar="">
+        </div>
+      </mat-card-header>
+    </button>
   </mat-toolbar>
   <section style="padding: 1%">
     <app-editor
       style="width: 50%;height:-webkit-fill-available;display: inline-flex;flex-direction: column"
     ></app-editor>
     <app-gallery
-      style="width: 50%;height:-webkit-fill-available;background-color: whitesmoke;display: inline-block;"
+      [user]="user" style="width: 50%;height:-webkit-fill-available;background-color: whitesmoke;display: inline-block;"
     ></app-gallery>
   </section>
 </span>

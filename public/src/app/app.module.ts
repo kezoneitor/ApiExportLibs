@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import {  } from '@angular/common/http';
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
@@ -13,7 +14,11 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import 'codemirror/mode/javascript/javascript';
@@ -26,15 +31,29 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { FunctionViewComponent } from './function-view/function-view.component';
 
 import { LingsService } from './services/lings.service';
+import { SearchLibComponent } from './search-lib/search-lib.component';
+import { LogModalComponent } from './log-modal/log-modal.component';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCAZuZg6PIcormNxQ7wm2Td3ViXTLa3XWM",
+  authDomain: "webfingerlings.firebaseapp.com",
+  databaseURL: "https://webfingerlings.firebaseio.com",
+  projectId: "webfingerlings",
+  storageBucket: "webfingerlings.appspot.com",
+  messagingSenderId: "346642686602",
+  appId: "1:346642686602:web:83ce94f35914fcf1"
+};
 
 @NgModule({
   declarations: [
     AppComponent,
     EditorComponent,
     GalleryComponent,
-    FunctionViewComponent
+    FunctionViewComponent,
+    SearchLibComponent,
+    LogModalComponent,
   ],
-  entryComponents: [FunctionViewComponent],
+  entryComponents: [FunctionViewComponent, LogModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -49,11 +68,18 @@ import { LingsService } from './services/lings.service';
     MatButtonModule,
     MatBadgeModule,
     MatDialogModule,
-    MatSnackBarModule,
+    MatGridListModule,
+    MatPaginatorModule,
+    CodemirrorModule,
     HttpClientModule,
-    CodemirrorModule
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    MatSnackBarModule,
+    MatSelectModule,
   ],
-  providers: [LingsService],
+  providers: [
+    LingsService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
