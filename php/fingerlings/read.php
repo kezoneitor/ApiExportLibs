@@ -8,11 +8,14 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 //Funcion para crear la conexión a la base de datos con un query enviado por parámetro
 include 'connection.php';
 //String query de ejecución
-$query = "select fingerlings.*, users.displayName, users.photourl from fingerlings inner join users on fingerlings.function_user = users.uid";
+$query = "";
+if (isset($_GET['idUser']))
+    $query = "select fingerlings.*, users.displayName, users.photourl from fingerlings inner join users on fingerlings.function_user = users.uid where users.uid = '" . $_GET['idUser'] . "'";
+else
+    $query = "select fingerlings.*, users.displayName, users.photourl from fingerlings inner join users on fingerlings.function_user = users.uid";
 //Ejecutar conexión
 $result = connection($query);
 //Tomar los valores de la consulta [función, dependencias, nombre_función]
-$script = json_encode(pg_fetch_all($result));
+$script = pg_fetch_all($result);
 //Validar si el usuario no envió un tipo de validación propia a la creada
-echo $script;
-?>
+echo json_encode($script ? $script : []);

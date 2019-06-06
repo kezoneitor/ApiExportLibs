@@ -14,13 +14,13 @@ export class LingsService {
   constructor(private http: HttpClient) { }
 
   // Load all lings in db
-  LingsAll(): Observable<Lings[]> {
-    return this.http.get<Lings[]>(`${this.php_server}/read.php`);
+  LingsAll(userID?: string): Observable<Lings[]> {
+    return this.http.get<Lings[]>(`${this.php_server}/read.php${userID ? "?idUser=" + userID : ""}`);
   }
-  async getNameByID(id:string): Promise<string>{
+  async getNameByID(id: string): Promise<string> {
     return await this.http.get<string>(`${this.php_server}/function.php?idToName=${id}`).toPromise();
   }
-  async getCode(id:string): Promise<string[]>{
+  async getCode(id: string): Promise<string[]> {
     return await this.http.get<string[]>(`${this.php_server}/function.php?code=${id}`).toPromise();
   }
 
@@ -28,7 +28,7 @@ export class LingsService {
     return this.http.post<MUser>(`${this.php_server}/users.php`, user);
   }
 
-  LingsSearch(category:string, parameters:string): Observable<Lings[]>{
+  LingsSearch(category: string, parameters: string): Observable<Lings[]> {
     return this.http.get<Lings[]>(`${this.php_server}/search_lib_function.php/?category=${category}&parameters=${parameters}`);
   }
 

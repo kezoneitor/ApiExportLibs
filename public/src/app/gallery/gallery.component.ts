@@ -36,30 +36,21 @@ export class GalleryComponent implements OnChanges {
     //this.readAll();
   }
 
-  ngOnChanges() {
-    this.myListLings();
-  }
-  getLings(): Lings[] {
-    return SearchLibComponent ? SearchLibComponent.lings : [];
-  }
-  myListLings(): void {
-    this.myLings = [];
-    if (this.user !== undefined) {
-      this.getLings().forEach(ling => {
-        if (ling.function_user === this.user.uid) {
-          this.myLings.push(ling);
-        }
-      });
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["user"].currentValue != changes["user"].previousValue) {
+      this.myLings = [];
+      if (this.user !== undefined) {
+        this.lings_services.LingsAll(this.user.uid).subscribe({
+          next: result => {
+            this.myLings = result;
+          }, error: error => {
+            console.error(error);
+          }
+        });
+      }
     }
   }
-  /*
-    readAll() {
-      this.lings_services.LingsAll().subscribe((res: Lings[]) => {
-        SearchLibComponent.lings = res;
-        this.myListLings();
-      });
-    }
-  */
+
   view(id: string): void {
     this.editor = {
       name: "",
@@ -79,5 +70,17 @@ export class GalleryComponent implements OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       console.log(console.log(result));
     });
+
+  }
+  getLings(): Lings[] {
+    return SearchLibComponent ? SearchLibComponent.lings : [];
   }
 }
+/*
+  readAll() {
+    this.lings_services.LingsAll().subscribe((res: Lings[]) => {
+      SearchLibComponent.lings = res;
+      this.myListLings();
+    });
+  }
+*/
