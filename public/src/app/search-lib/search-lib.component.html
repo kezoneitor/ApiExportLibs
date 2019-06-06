@@ -1,16 +1,16 @@
-<form>
+<form style="width: 100%">
     <!-- Selector de categoría de busqueda-->
-    <mat-form-field style="width: 150px; margin-left: 20px" >
+    <mat-form-field style="width: 30%; margin-left: 20px;" >
         <mat-label>Buscar Función por</mat-label>
         <select matNativeControl name="category" [(ngModel)] = "selectedCategory">
-          <option *ngFor="let category of categories" [value]="category.value">
+          <option style="color: black" *ngFor="let category of categories" [value]="category.value">
             {{category.viewValue}}
           </option>
         </select>
       </mat-form-field>
   
     <!-- Cuadro de texto para escribir el termino a buscar-->
-    <mat-form-field style="margin: 10px;width: 30%">
+    <mat-form-field style="margin: 10px;width: 55%">
       <input matInput name="parameters" [(ngModel)] = "searchParameters">
     </mat-form-field>
 
