@@ -15,12 +15,11 @@ export interface Category {
 export class SearchLibComponent implements OnInit {
 
   categories: Category[] = [
-    { value: 'code', viewValue: 'Código' },
-    { value: 'description', viewValue: 'Descripción' },
-    { value: 'f_name', viewValue: 'Nombre' },
-    { value: 'function_user', viewValue: 'Usuario' },
-    { value: 'tags', viewValue: 'Etiquetas' }
-
+    {value: 'code', viewValue: 'Código'},
+    {value: 'description', viewValue: 'Descripción'},
+    {value: 'f_name', viewValue: 'Nombre'},
+    {value: 'displayname', viewValue: 'Usuario'},
+    {value: 'tags', viewValue: 'Etiquetas'}
   ];
 
   public selectedCategory: string;
