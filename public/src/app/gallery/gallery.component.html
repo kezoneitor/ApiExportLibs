@@ -1,5 +1,5 @@
 <mat-tab-group [backgroundColor]="'accent'">
-  <mat-tab label="Lo más usado">
+  <mat-tab label="Funciones">
     <!--<mat-paginator [length]="listLings.length" [pageSize]="3" [pageSizeOptions]="[1, 10, 20]" *ngIf="listLings !== undefined">-->
       <mat-grid-list cols="3" rowHeight="1:1">
         <mat-grid-tile *ngFor="let ling of listLings">
@@ -20,7 +20,7 @@
       </mat-grid-list>
     <!--</mat-paginator>-->
   </mat-tab>
-  <mat-tab label="Mi Galería" *ngIf="user !== undefined">
+  <mat-tab label="Mis funciones" *ngIf="user !== undefined">
     <mat-grid-list cols="3" rowHeight="1:1">
       <mat-grid-tile *ngFor="let ling of myLings">
         <mat-card class="card">

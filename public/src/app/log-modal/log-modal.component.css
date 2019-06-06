@@ -1,21 +1,40 @@
-.estilo-boton{
-    width: 25%;    
-    border-radius: 2px;
-    border-color:transparent;
-    color: white;
-    margin-left: 18%;
-    margin-top: 0px;
-    font-size: 17px;   
-    border-radius:10px; 
-    border-color:transparent;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.content_social {
+    display: flex;
+    justify-content: center;
+}
 
+.estilo-boton{
+    width: 25%;
+    margin: 2%;
+    border-color:transparent;
+    padding: 2%;
+    font-size: 14pt;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .red {
-
+    color: white;
+    background-color: rgb(234, 67, 53);
 }
 
 .blue {
-      background-color: rgb(18, 81, 139);
+    color: white;
+    background-color: rgb(66, 103, 178);
+}
+
+@media screen and (max-width: 900px){
+    .estilo-boton{
+        width: 40%;
+        font-size: 14pt;
+    }
+}
+@media screen and (max-width: 520px){
+    .content_social {
+        display: block;
+        justify-content: center;
+    }
+    .estilo-boton{
+        width: 100%;
+        font-size: 14pt;
+    }
 }

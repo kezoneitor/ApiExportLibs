@@ -11,7 +11,7 @@ import { AuthService } from "./auth/auth.service";
 })
 export class AppComponent {
   title = 'public';
-  is_login = false;
+  public is_login = false;
   @Output() user: MUser;
   constructor(public dialog: MatDialog, public authService: AuthService) { 
     this.is_login = this.authService.isLoggedIn;
@@ -22,7 +22,7 @@ export class AppComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LogModalComponent, {
-      width: '25%',
+      width: '40%',
     });
     dialogRef.afterClosed().subscribe(result => {
       this.is_login = result;

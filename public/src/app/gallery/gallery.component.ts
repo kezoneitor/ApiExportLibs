@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Lings } from '../models/Lings';
 import { LingsService } from '../services/lings.service';
 import { MatDialog } from '@angular/material';
@@ -11,9 +11,9 @@ import { MUser } from "../models/mUser";
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.css']
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent implements OnChanges {
   public listLings: Lings[];
-  public myLings: Lings[] = [];
+  public myLings: Lings[];
   editor: functionData = {
     name: "",
     desc: "",
@@ -25,6 +25,7 @@ export class GalleryComponent implements OnInit {
     id: ""
   }
   @Input('user') user: MUser;
+  
   constructor(
     public lings_services: LingsService,
     public dialog: MatDialog,
@@ -35,7 +36,14 @@ export class GalleryComponent implements OnInit {
     this.readAll();
   }
 
+  ngOnChanges() {
+    if (this.listLings !== undefined){
+      this.myListLings();
+    }
+  }
+
   myListLings(): void {
+    this.myLings = [];
     if (this.user !== undefined) {
       this.listLings.forEach(ling => {
         if (ling.function_user === this.user.uid) {
@@ -51,7 +59,8 @@ export class GalleryComponent implements OnInit {
       this.myListLings();
     });
   }
-  view(ling: Lings): void {
+
+  view(id: string): void {
     this.editor = {
       name: "",
       desc: "",
@@ -60,7 +69,7 @@ export class GalleryComponent implements OnInit {
       tags: "",
       params: "",
       deps: {},
-      id: ""
+      id: id
     }
     const dialogRef = this.dialog.open(FunctionViewComponent, {
       width: '50vw',

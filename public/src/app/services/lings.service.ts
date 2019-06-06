@@ -18,10 +18,10 @@ export class LingsService {
     return this.http.get<Lings[]>(`${this.php_server}/read.php`);
   }
   async getNameByID(id:string): Promise<string>{
-    return await this.http.get<string>(`${this.php_server}/info/index.php?idToName=${id}`).toPromise();
+    return await this.http.get<string>(`${this.php_server}/info.php?idToName=${id}`).toPromise();
   }
   async getCode(id:string): Promise<string[]>{
-    return await this.http.get<string[]>(`${this.php_server}/info/index.php?code=${id}`).toPromise();
+    return await this.http.get<string[]>(`${this.php_server}/info.php?code=${id}`).toPromise();
   }
 
   AddUser(user: MUser): Observable<MUser> {
