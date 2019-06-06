@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { FunctionViewComponent, functionData, getColor, contrast } from '../function-view/function-view.component';
+import { LingsService } from '../services/lings.service';
 
 interface requestdata {
   name: string,
@@ -31,7 +32,7 @@ export class EditorComponent implements OnInit {
     id: undefined
   }
   depID = "";
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private snackBar: MatSnackBar, public lingsAPI: LingsService) {
     this.updateView();
   }
   ngOnInit() {
@@ -78,8 +79,14 @@ export class EditorComponent implements OnInit {
   }
   addDep() {
     if (this.depID != "" && !this.editor.deps[this.depID]) {
-      this.editor.deps[this.depID] = "Nombre generico"
-      this.depID = "";
+      this.lingsAPI.getNameByID(this.depID)
+        .then((name) => {
+          this.editor.deps[this.depID] = name;
+          this.depID = "";
+          this.snackBar.open("Dependencia añadida", "Ok", { duration: 2000 })
+        }).catch((error) => {
+          this.snackBar.open(JSON.stringify(error), "Ok", { duration: 10000 })
+        });
     }
   }
   preview() {

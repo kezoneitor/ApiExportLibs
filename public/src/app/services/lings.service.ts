@@ -17,6 +17,12 @@ export class LingsService {
   LingsAll(): Observable<Lings[]> {
     return this.http.get<Lings[]>(`${this.php_server}/read.php`);
   }
+  async getNameByID(id:string): Promise<string>{
+    return await this.http.get<string>(`${this.php_server}/info/index.php?idToName=${id}`).toPromise();
+  }
+  async getCode(id:string): Promise<string[]>{
+    return await this.http.get<string[]>(`${this.php_server}/info/index.php?code=${id}`).toPromise();
+  }
 
   AddUser(user: MUser): Observable<MUser> {
     return this.http.post<MUser>(`${this.php_server}/users.php`, user);
