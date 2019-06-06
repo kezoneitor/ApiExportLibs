@@ -18,7 +18,7 @@ export class SearchLibComponent implements OnInit {
     {value: 'code', viewValue: 'Código'},
     {value: 'description', viewValue: 'Descripción'},
     {value: 'f_name', viewValue: 'Nombre'},
-    {value: 'function_user', viewValue: 'Usuario'},
+    {value: 'displayname', viewValue: 'Usuario'},
     {value: 'tags', viewValue: 'Etiquetas'}
     
   ];

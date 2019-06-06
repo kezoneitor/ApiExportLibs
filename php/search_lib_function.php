@@ -1,6 +1,6 @@
 <?php
 
-require 'database.php';
+require 'connection.php';
 
       $lings = [];
 
@@ -11,7 +11,7 @@ require 'database.php';
             $equal = " ~ ";; // Para comparar sin importar mayúsculas y minúsculas 
             $OR = " OR ";
             $query = "";
-
+            
             //echo "<br>"; //* Esto es un salto de linea
             $parameters_ar = explode(' ', $parameters); // Convierto los parámetros
 
@@ -19,13 +19,15 @@ require 'database.php';
 
               //    echo("Buscar en tags");
 
+                  
                   foreach ($parameters_ar as $key => $value) {
                         
                         //echo(strlen($value));
-                        
+
                         if (strlen($value) > 0) { // Construyo el siguiente formato para la consulta
                               //                     'valor'         ILIKE     ANY(tags)          OR
-                              $query = $query . "UPPER(ARRAY_TO_STRING(".$category.", '||'))" .$equal . "'". $value . "'" . $OR . "LOWER(ARRAY_TO_STRING(".$category.", '||'))" .$equal . "'". $value . "'" . $OR;
+
+                              $query = $query . "UPPER(ARRAY_TO_STRING(".$category.", '||'))" .$equal . "UPPER('". $value . "')"  . $OR;
                               //echo($value);
                               //echo("<br>");
                         }
@@ -43,7 +45,7 @@ require 'database.php';
                         
                         if (strlen($value) > 0) {// Construyo el siguiente formato para la consulta
                               //                categoria = ' valor '
-                              $query = $query . $category . $equal . "'" . $value . "'" . $OR;
+                              $query = $query . "UPPER(" . $category .")" . $equal . "UPPER(" . "'" . $value . "'" .")"  . $OR;
                               //echo($value);
                               //echo("<br>");
                         }
@@ -52,7 +54,7 @@ require 'database.php';
             }
 
      //       echo($query);
-       //     echo("<br>");
+       //     echo("<br>")<;
             // Remuevo la cadena extra OR que se concatena al final
             $i = strlen($query)-4;
             $query = substr_replace($query, '', $i, 4);
@@ -63,21 +65,29 @@ require 'database.php';
 
       if(isset($_GET['category']) && isset($_GET['parameters'])){
             
+            //$table_name = 'fingerlings';<
+
             // Se prepara la consulta en base a la categoría y los parámetros
             $query = prepararConsulta($_GET['category'],$_GET['parameters']);
             
-            $sql="select * from fingerlings where ". $query;    // Se realiza la consulta respectiva
+          //  echo ($query. '<br/>');
+            //echo ('<br/>');
+
+            $sql="select fg.code, fg.description, fg.f_name, fg.script, u.displayname, fg.tags, fg.dependencies, u.photourl from fingerlings fg INNER JOIN users u ON fg.function_user = u.uid" ." where ". $query;    // Se realiza la consulta respectiva
             //$sql = "select * from fingerlings where code = '2'";
-            $result=pg_query($conn,$sql);
+            $result= connection($sql);//pg_query($conn,$sql);
+            
+
+            //echo($_result);
 
             $i = 0;
 
             while ($row=pg_fetch_row($result))
             {     
-                  /*
+                  
                   echo("Funcion # ". '<br/>');
-                  echo ("code : ". $row[0].'<br />');
-                  echo ("description : ".$row[1].'<br />');
+                 // echo ("code : ". $row[0].'<br />');
+                  /*echo ("description : ".$row[1].'<br />');
                   echo ("f_name : ".$row[2].'<br />');
                   echo ("script : ".$row[3].'<br />');
                   echo ("f_user : ".$row[4].'<br />');
@@ -89,9 +99,10 @@ require 'database.php';
                   $lings[$i]['description'] = $row[1];
                   $lings[$i]['f_name'] = $row[2];
                   $lings[$i]['script'] = $row[3];
-                  $lings[$i]['f_user'] = $row[4];
-                  $lings[$i]['f_tags'] = $row[5];
+                  $lings[$i]['displayname'] = $row[4];
+                  $lings[$i]['tags'] = $row[5];
                   $lings[$i]['dependencies'] = $row[6];
+                  $lings[$i]['photourl'] = $row[7];
                   $i++;
 
             }
