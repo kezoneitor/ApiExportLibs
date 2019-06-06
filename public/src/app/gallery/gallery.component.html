@@ -1,8 +1,8 @@
 <mat-tab-group [backgroundColor]="'accent'">
   <mat-tab label="Funciones">
-    <!--<mat-paginator [length]="listLings.length" [pageSize]="3" [pageSizeOptions]="[1, 10, 20]" *ngIf="listLings !== undefined">-->
+    <!--<mat-paginator [length]="getLings().length" [pageSize]="3" [pageSizeOptions]="[1, 10, 20]" *ngIf="getLings() !== undefined">-->
       <mat-grid-list cols="3" rowHeight="1:1">
-        <mat-grid-tile *ngFor="let ling of listLings">
+        <mat-grid-tile *ngFor="let ling of getLings()">
             <mat-card class="card"> 
               <mat-card-header>
                 <div mat-card-avatar class="photo" [ngStyle]="{'background-image': 'url(\''+ling.photourl+'\')'}"></div>
