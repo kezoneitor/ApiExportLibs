@@ -13,8 +13,8 @@ var check;
  */
 function implement_lib(code, check) {
       let xhttp = new XMLHttpRequest();
-      let url = `http://leoviquez.com:8080/fingerlings/?code=${code}`;
-      //let url = `http://localhost/fingerlings/?code=${code}`;
+      //let url = `http://leoviquez.com:8080/fingerlings/?code=${code}`;
+      let url = `http://localhost/fingerlings/?code=${code}`;
       url += (check != undefined) ? `&check=${check}` : "";
       xhttp.open("GET", url, true);
       xhttp.onreadystatechange = function () {

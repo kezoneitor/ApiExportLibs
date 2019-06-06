@@ -32,15 +32,10 @@ export class GalleryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    /*
-    if (this.authService.isLoggedIn) {
-      this.user = this.authService.getUser;
-    }
-    */
     this.readAll();
   }
 
-  @Input('data') myListLings(): void {
+  myListLings(): void {
     if (this.user !== undefined) {
       this.listLings.forEach(ling => {
         if (ling.function_user === this.user.uid) {

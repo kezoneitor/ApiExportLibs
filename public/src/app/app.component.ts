@@ -22,7 +22,7 @@ export class AppComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LogModalComponent, {
-      width: '250px'
+      width: '25%',
     });
     dialogRef.afterClosed().subscribe(result => {
       this.is_login = result;
