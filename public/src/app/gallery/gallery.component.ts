@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { FunctionViewComponent, functionData } from '../function-view/function-view.component';
 import { AuthService } from "../auth/auth.service";
 import { MUser } from "../models/mUser";
+import { SearchLibComponent } from '../search-lib/search-lib.component';
 
 @Component({
   selector: 'app-gallery',
@@ -12,7 +13,6 @@ import { MUser } from "../models/mUser";
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnChanges {
-  public listLings: Lings[];
   public myLings: Lings[];
   editor: functionData = {
     name: "",
@@ -25,7 +25,7 @@ export class GalleryComponent implements OnChanges {
     id: ""
   }
   @Input('user') user: MUser;
-  
+
   constructor(
     public lings_services: LingsService,
     public dialog: MatDialog,
@@ -33,33 +33,33 @@ export class GalleryComponent implements OnChanges {
   ) { }
 
   ngOnInit() {
-    this.readAll();
+    //this.readAll();
   }
 
   ngOnChanges() {
-    if (this.listLings !== undefined){
-      this.myListLings();
-    }
+    this.myListLings();
   }
-
+  getLings(): Lings[] {
+    return SearchLibComponent ? SearchLibComponent.lings : [];
+  }
   myListLings(): void {
     this.myLings = [];
     if (this.user !== undefined) {
-      this.listLings.forEach(ling => {
+      this.getLings().forEach(ling => {
         if (ling.function_user === this.user.uid) {
           this.myLings.push(ling);
         }
       });
     }
   }
-
-  readAll() {
-    this.lings_services.LingsAll().subscribe((res: Lings[]) => {
-      this.listLings = res;
-      this.myListLings();
-    });
-  }
-
+  /*
+    readAll() {
+      this.lings_services.LingsAll().subscribe((res: Lings[]) => {
+        SearchLibComponent.lings = res;
+        this.myListLings();
+      });
+    }
+  */
   view(id: string): void {
     this.editor = {
       name: "",
