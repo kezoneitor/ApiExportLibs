@@ -1,6 +1,11 @@
 <?php
 
-require 'database.php';
+//Tomar como un Javascript el echo del php
+header('Content-Type: application/javascript');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+require 'connection.php';
 
       $lings = [];
 
@@ -68,7 +73,7 @@ require 'database.php';
             
             $sql="select * from fingerlings where ". $query;    // Se realiza la consulta respectiva
             //$sql = "select * from fingerlings where code = '2'";
-            $result=pg_query($conn,$sql);
+            $result=connection($sql);
 
             $i = 0;
 

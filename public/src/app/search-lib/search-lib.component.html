@@ -15,7 +15,7 @@
     </mat-form-field>
 
     <!-- Botón de búsqueda -->
-    <button mat-icon-button (click)="realizarBusqueda()" aria-label="Example icon-button with a heart icon">
+    <button mat-icon-button (click)="realizarBusqueda()" [disabled] = "selectedCategory == undefined || searchParameters == ''" aria-label="Example icon-button with a heart icon">
         <mat-icon>search</mat-icon>
     </button>
 
