@@ -83,16 +83,14 @@ require 'connection.php';
             $result=connection($sql);
 
             //echo($_result);
-=======
             $result=connection($sql);
->>>>>>> 830cd6dd92c6ad356d2b0a80666cb0907d7f6ba6:php/fingerlings/search_lib_function.php
 
             $i = 0;
 
             while ($row=pg_fetch_row($result))
             {     
                   
-                  echo("Funcion # ". '<br/>');
+                  //echo("Funcion # ". '<br/>');
                  // echo ("code : ". $row[0].'<br />');
                   /*echo ("description : ".$row[1].'<br />');
                   echo ("f_name : ".$row[2].'<br />');

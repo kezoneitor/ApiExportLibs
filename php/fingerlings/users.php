@@ -7,37 +7,21 @@ header('Access-Control-Allow-Headers: X-Requested-With, content-type, access-con
 header('Content-type: application/json');
 
 // Get the posted data.
-$postdata = file_get_contents("php://input");
-if(isset($postdata))
-{
+$postdata = json_decode(file_get_contents("php://input")) or die("Se marmut");
+if (isset($postdata) && isset($postdata->displayName) && isset($postdata->email) && isset($postdata->photoURL) && isset($postdata->uid)) {
+      //echo json_encode($postdata->displayName);
+      //echo json_encode($postdata->email);
+      //echo json_encode($postdata->photoURL);
+      //echo json_encode($postdata->uid);
       // Extract the data.
-      $request = json_decode($postdata);
-      echo $request;
+      //echo json_encode($postdata);
+      $sql = "INSERT INTO users(uid,displayName, email, photoURL) values ('$postdata->uid','$postdata->displayName','$postdata->email','$postdata->photoURL') on conflict(uid) do nothing";
+      $result = connection($sql) or die("false");
+      //echo json_encode(pg_fetch_all(connection("select * from users")));
+      //connection("delete from users where uid = '$postdata->uid'") or die("false");
+      //echo json_encode(pg_fetch_all(connection("select * from users")));
+      echo json_encode(true);
       exit;
-
-      // Validate.
-      if(trim($request->number) === '' || (float)$request->amount < 0)
-      {
-            return http_response_code(400);
-      }
-
-
-      // Create.
-      $sql = "INSERT INTO `policies`(`id`,`number`,`amount`) VALUES (null,'{$number}','{$amount}')";
-
-      if(mysqli_query($con,$sql))
-      {
-      http_response_code(201);
-      $policy = [
-      'number' => $number,
-      'amount' => $amount,
-      'id'    => mysqli_insert_id($con)
-      ];
-      echo json_encode($policy);
-      }
-      else
-      {
-            http_response_code(422);
-      }
+} else{
+      echo json_encode(false);
 }
-echo "kezo";

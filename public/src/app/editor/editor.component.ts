@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { FunctionViewComponent, functionData, getColor, contrast } from '../function-view/function-view.component';
 import { LingsService } from '../services/lings.service';
+import { SearchLibComponent } from '../search-lib/search-lib.component';
 
 interface requestdata {
   name: string,
@@ -22,13 +23,13 @@ export class EditorComponent implements OnInit {
   contrast = contrast;
   getColor = getColor;
   editor: functionData = {
-    name: "suma",
-    desc: "suma dos valores",
-    code: "return x + y;",
+    name: "",
+    desc: "",
+    code: "",
     fullcode: "",
-    tags: "math simple",
-    params: "x,y",
-    deps: { 0: "dependencia 1" },
+    tags: "los tags aquí",
+    params: "par1, par2",
+    deps: {},
     id: undefined
   }
   depID = "";
@@ -65,29 +66,64 @@ export class EditorComponent implements OnInit {
   removeDep(dependencia) {
     delete (this.editor.deps[dependencia]);
   }
-  send() {
-    let data: requestdata = {
-      name: this.editor.name,
-      params: this.editor.params.replace(' ', '').split(','),
-      function: this.editor.fullcode,
-      desc: this.editor.desc,
-      tags: this.editor.tags.split(' '),
-      deps: Object.keys(this.editor.deps),
-      user: "",
-    }
-    console.log(data);
-  }
   addDep() {
     if (this.depID != "" && !this.editor.deps[this.depID]) {
       this.lingsAPI.getNameByID(this.depID)
         .then((name) => {
-          this.editor.deps[this.depID] = name;
-          this.depID = "";
-          this.snackBar.open("Dependencia añadida", "Ok", { duration: 2000 })
+          if (name) {
+            this.editor.deps[this.depID] = name;
+            this.depID = "";
+            this.snackBar.open("Dependencia añadida", "Ok", { duration: 2000 })
+          } else
+            this.snackBar.open("Ingrese un id de función existente", "Ok", { duration: 2000 })
         }).catch((error) => {
           this.snackBar.open(JSON.stringify(error), "Ok", { duration: 10000 })
         });
     }
+  }
+  send() {
+    if (this.editor.name == "")
+      this.snackBar.open("Escriba un nombre a su función", "Ok", { duration: 2000 });
+    else if (this.editor.code == "")
+      this.snackBar.open("La función más útil del mundo", "Ok", { duration: 2000 });
+    else if (this.editor.desc == "")
+      this.snackBar.open("Escriba una descripción", "Ok", { duration: 2000 });
+    else if (this.editor.tags == "")
+      this.snackBar.open("Incluye un tag", "Ok", { duration: 2000 });
+    else if (localStorage.getItem('user') != null){
+      let user = JSON.parse(localStorage.getItem('user')).uid;
+      this.lingsAPI.AddFunction({
+        code: "",
+        script: this.editor.fullcode,
+        tags: this.editor.tags.split(" "),
+        dependencies: this.Object.keys(this.editor.deps),
+        function_user: user,
+        description: this.editor.desc,
+        f_name: this.editor.name
+      }).subscribe({
+        next: result => {
+          this.editor = {
+            name: "",
+            desc: "",
+            code: "",
+            fullcode: "",
+            tags: "los tags aquí",
+            params: "par1, par2",
+            deps: {},
+            id: undefined
+          }
+          this.lingsAPI.LoadUserFns(user);
+          this.lingsAPI.LingsAll();
+          console.log(result);
+        },
+        error: error => {
+          console.log(error);
+        }
+      })
+
+    }
+    else
+      this.snackBar.open("Inicie sesión primero", "Ok", { duration: 2000 });
   }
   preview() {
     const dialogRef = this.dialog.open(FunctionViewComponent, {

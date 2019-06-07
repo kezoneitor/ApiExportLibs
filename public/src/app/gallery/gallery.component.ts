@@ -13,7 +13,6 @@ import { SearchLibComponent } from '../search-lib/search-lib.component';
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnChanges {
-  public myLings: Lings[];
   editor: functionData = {
     name: "",
     desc: "",
@@ -30,27 +29,38 @@ export class GalleryComponent implements OnChanges {
     public lings_services: LingsService,
     public dialog: MatDialog,
     public authService: AuthService
-  ) { }
+  ) {
+    console.log(this.user);
+  }
 
   ngOnInit() {
     //this.readAll();
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(this.user);
     if (changes["user"].currentValue != changes["user"].previousValue) {
-      this.myLings = [];
-      if (this.user !== undefined) {
-        this.lings_services.LingsAll(this.user.uid).subscribe({
-          next: result => {
-            this.myLings = result;
-          }, error: error => {
-            console.error(error);
-          }
-        });
-      }
+      this.updateMyLings();
     }
   }
-
+  getMyLings() {
+    return LingsService ? LingsService.userFns : [];
+  }
+  updateMyLings() {
+    this.lings_services.LoadUserFns(this.user.uid);
+    /*
+    this.myLings = [];
+    if (this.user !== undefined) {
+      this.lings_services.LoadUserFns(this.user.uid).subscribe({
+        next: result => {
+          this.myLings = result;
+        }, error: error => {
+          console.error(error);
+        }
+      });
+    }
+    */
+  }
   view(id: string): void {
     this.editor = {
       name: "",
@@ -73,7 +83,7 @@ export class GalleryComponent implements OnChanges {
 
   }
   getLings(): Lings[] {
-    return SearchLibComponent ? SearchLibComponent.lings : [];
+    return LingsService ? LingsService.allFns : [];
   }
 }
 /*

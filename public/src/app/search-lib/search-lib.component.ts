@@ -24,7 +24,6 @@ export class SearchLibComponent implements OnInit {
 
   public selectedCategory: string;
   public searchParameters: string;
-  public static lings: Lings[];
 
   /*
    Por usuario
@@ -34,15 +33,8 @@ d) Por etiqueta
 e) Por nombre de función
   */
   constructor(private lingsService: LingsService) {
-    SearchLibComponent.lings = [];
-    this.lingsService.LingsAll().subscribe({
-      next: result => {
-        SearchLibComponent.lings = result;
-      },
-      error: error => {
-        console.log(error);
-      }
-    });
+    LingsService.allFns = [];
+    this.lingsService.LingsAll();
   }
 
   ngOnInit() {
@@ -54,9 +46,9 @@ e) Por nombre de función
     console.log(this.selectedCategory);
 
     this.lingsService.LingsSearch(this.selectedCategory, this.searchParameters).subscribe((lings: Lings[]) => {
-      SearchLibComponent.lings = lings;
+      LingsService.allFns = lings;
       console.log("LINGS OBTENIDAS");
-      console.log(SearchLibComponent.lings);
+      console.log(LingsService.allFns);
       console.log("LINGS OBTENIDAS");
     });
 
