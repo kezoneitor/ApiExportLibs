@@ -29,9 +29,6 @@ export class AppComponent {
       this.is_login = result;
       this.user = this.authService.getUser;
       this.lingS.AddUser(this.user).subscribe({
-        next: result => {
-          console.log(result);
-        },
         error: error => {
           console.log(error);
         }

@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material';
 import { FunctionViewComponent, functionData } from '../function-view/function-view.component';
 import { AuthService } from "../auth/auth.service";
 import { MUser } from "../models/mUser";
-import { SearchLibComponent } from '../search-lib/search-lib.component';
 
 @Component({
   selector: 'app-gallery',
@@ -30,7 +29,6 @@ export class GalleryComponent implements OnChanges {
     public dialog: MatDialog,
     public authService: AuthService
   ) {
-    console.log(this.user);
   }
 
   ngOnInit() {
@@ -38,7 +36,6 @@ export class GalleryComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(this.user);
     if (changes["user"].currentValue != changes["user"].previousValue) {
       this.updateMyLings();
     }
@@ -47,7 +44,9 @@ export class GalleryComponent implements OnChanges {
     return LingsService ? LingsService.userFns : [];
   }
   updateMyLings() {
-    this.lings_services.LoadUserFns(this.user.uid);
+    if (this.user != undefined){
+      this.lings_services.LoadUserFns(this.user.uid);
+    }
     /*
     this.myLings = [];
     if (this.user !== undefined) {
@@ -78,7 +77,6 @@ export class GalleryComponent implements OnChanges {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(console.log(result));
     });
 
   }

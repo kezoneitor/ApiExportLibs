@@ -18,14 +18,11 @@ export class LingsService {
   async LingsAll() {
     this.http.get<Lings[]>(`${this.php_server}/read.php`).toPromise().then((lings: Lings[]) => {
       LingsService.allFns = lings
-      console.log(LingsService.userFns);
     }).catch(error => { console.log(error) });
   }
   async LoadUserFns(userID: string) {
-    console.log("loading for " + userID)
     this.http.get<Lings[]>(`${this.php_server}/read.php?idUser=${userID}`).toPromise().then((lings: Lings[]) => {
       LingsService.userFns = lings
-      console.log(LingsService.userFns);
     }).catch(error => { console.log(error) });
   }
 

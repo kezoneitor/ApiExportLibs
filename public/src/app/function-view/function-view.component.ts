@@ -78,8 +78,6 @@ export class FunctionViewComponent implements OnInit {
 
         this.data.tags = ((code.tags.toString().substr(1, code.tags.toString().length - 2)).split(",")).join(" ");
         let deps: string[] = code.dependencies ? ((code.dependencies.toString().substr(1, code.dependencies.toString().length - 2)).split(",")) : [];
-        console.log(this.data)
-        console.log(deps);
         deps.forEach(async dep => {
           if (dep == "") return;
           let name = await this.lingsAPI.getNameByID(dep);
@@ -88,7 +86,6 @@ export class FunctionViewComponent implements OnInit {
         })
       })
       .catch((error) => {
-        console.log("Hubo un error")
         this.snackBar.open(JSON.stringify(error), "Ok", { duration: 10000 })
       })
   }
@@ -99,9 +96,7 @@ export class FunctionViewComponent implements OnInit {
       data: { id: dep }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(console.log(result));
-    });
+    dialogRef.afterClosed();
   }
   copyToClipboard(text: string) {
     let selBox = document.createElement('textarea');
