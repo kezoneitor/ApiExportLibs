@@ -68,6 +68,12 @@ export class FunctionViewComponent implements OnInit {
       this.loadView(data.id);
     }
   }
+  compile(){
+    console.log(this.data.id)
+    if(this.data && this.data.id && this.data.id !='' ){
+      this.lingsAPI.compile(this.data.id);
+    }
+  }
   loadView(id) {
     //Aquí cargo los datos de la función
     this.lingsAPI.getCode(id)

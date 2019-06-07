@@ -1,24 +1,46 @@
 <section style="margin-left: 2.5%">
   <h1>Editor</h1>
   <div class="editor">
-    <mat-form-field>
-      <input
-        style="width: 40%"
-        [(ngModel)]="editor.name"
-        matInput
-        placeholder="Nombre"
-        (ngModelChange)="updateView()"
-      />
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        style="width: 50%;"
-        [(ngModel)]="editor.params"
-        matInput
-        placeholder="Parametros (separados por coma)"
-        (ngModelChange)="updateView()"
-      />
-    </mat-form-field>
+    <mat-card
+      style="
+    background-color:whitesmoke;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: auto;
+    display: grid"
+    >
+      <mat-form-field>
+        <input
+          style="width: 100%"
+          [(ngModel)]="editor.name"
+          matInput
+          placeholder="Nombre"
+          (ngModelChange)="updateView()"
+        />
+      </mat-form-field>
+    </mat-card>
+    <mat-card
+      style="
+      background-color:whitesmoke;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      padding: 5px;
+      width: auto;
+      display: grid"
+    >
+      <mat-form-field>
+        <input
+          style="width: 100%;"
+          [(ngModel)]="editor.params"
+          matInput
+          placeholder="Parametros (separados por coma)"
+          (ngModelChange)="updateView()"
+        />
+      </mat-form-field>
+    </mat-card>
 
     <ngx-codemirror
       [(ngModel)]="editor.fullcode"
@@ -31,14 +53,55 @@
     >
     </ngx-codemirror>
 
-    <mat-form-field>
-      <textarea
-        matInput
-        placeholder="Descripción"
-        [(ngModel)]="editor.desc"
-        maxlength="100"
-      ></textarea>
-    </mat-form-field>
+    <mat-card
+      style="
+    background-color:whitesmoke;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: auto;
+    display: grid"
+    >
+      <mat-form-field>
+        <textarea
+          matInput
+          placeholder="Descripción"
+          [(ngModel)]="editor.desc"
+          maxlength="100"
+        ></textarea>
+      </mat-form-field>
+    </mat-card>
+    <mat-card
+      style="
+      background-color:whitesmoke;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      width: auto;"
+    >
+      <mat-chip-list #tagList>
+        <mat-chip
+          *ngFor="let tag of editor.tags.split(' ')"
+          [removable]="true"
+          (removed)="removeTag(tag)"
+          [style.background-color]="getColor(tag)"
+          [style.color]="contrast(tag)"
+        >
+          {{ tag }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Nuevo tag..."
+          #fruitInput
+          [matChipInputFor]="tagList"
+          [matChipInputSeparatorKeyCodes]="tagsKeyCodes"
+          [matChipInputAddOnBlur]="true"
+          (matChipInputTokenEnd)="addTag($event)"
+        />
+      </mat-chip-list>
+    </mat-card>
+    <!--
     <mat-form-field>
       <input
         style="width: 50%"
@@ -47,31 +110,51 @@
         placeholder="Etiquetas (separadas por espacio)"
       />
     </mat-form-field>
-    <h2 style="width: fit-content; margin: 2%">Dependencias:</h2>
-    <span style="display: flex">
-      <input
-        style="display: inline-block;width: 70%"
-        [(ngModel)]="depID"
-        matInput
-        placeholder="ID De funcion"
-      />
-      <button
-        mat-raised-button
-        style="width:auto; margin: 2%; margin-left: auto"
-        (click)="addDep()"
-      >
-        Añadir
-      </button>
-    </span>
-    <span
-      *ngIf="Object.keys(editor.deps).length == 0"
-      style="text-align: center"
+    -->
+    <mat-card
+      style="
+    background-color:whitesmoke;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: auto;"
     >
-      <i style="color: grey">
+      <h2 style="width: fit-content; margin: 2%">Dependencias:</h2>
+      <span style="display: flex">
+        <input
+          style="display: inline-block;width: 70%"
+          [(ngModel)]="depID"
+          matInput
+          placeholder="ID De funcion"
+        />
+        <button
+          mat-raised-button
+          style="width:auto; margin: 2%; margin-left: auto"
+          (click)="addDep()"
+        >
+          Añadir
+        </button>
+      </span>
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let item of Object.keys(editor.deps)"
+          [removable]="true"
+          (removed)="removeDep(item)"
+          [style.background-color]="getColor(editor.deps[item])"
+          [style.color]="contrast(editor.deps[item])"
+        >
+          {{ item }} - {{ editor.deps[item] }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+      <i
+        *ngIf="Object.keys(editor.deps).length == 0"
+        style="color: grey; text-align: center"
+      >
         Recuerde añadir las dependencias requeridas
       </i>
-    </span>
-    <span style="display: inline-block">
+    </mat-card>
+    <!--
       <span *ngFor="let item of Object.keys(editor.deps)">
         <mat-card
           [style.background-color]="getColor(editor.deps[item])"
@@ -84,7 +167,7 @@
           {{ editor.deps[item] }}
         </mat-card>
       </span>
-    </span>
+      -->
     <button
       mat-raised-button
       (click)="preview()"

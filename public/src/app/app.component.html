@@ -1,15 +1,30 @@
 <span style="height: 100vh;width: 100%; display: inline-block;overflow:auto">
   <mat-toolbar color="primary">
     <span>Fingerlings</span>
+    <button mat-button (click)="downloadJS()">Descarga la librería!</button>
     <span style="flex: 1 1 auto"></span>
     <app-search-lib style="width: 70%"></app-search-lib>
-    <button mat-icon-button id="log_icon" (click)="openDialog()" *ngIf="!is_login">
-      <mat-icon aria-hidden="false" aria-label="User verified icon" >perm_identity</mat-icon>
+    <button
+      mat-icon-button
+      id="log_icon"
+      (click)="openDialog()"
+      *ngIf="!is_login"
+    >
+      <mat-icon aria-hidden="false" aria-label="User verified icon"
+        >perm_identity</mat-icon
+      >
     </button>
     <button mat-icon-button id="log_icon" (click)="logout()" *ngIf="is_login">
       <mat-card-header _ngcontent-hpu-c6="" class="mat-card-header">
-        <div _ngcontent-hpu-c6="" class="photo" [ngStyle]="{'background-image': user !== undefined ? 'url(\''+user.photoURL+'\')' : ''}" mat-card-avatar="">
-        </div>
+        <div
+          _ngcontent-hpu-c6=""
+          class="photo"
+          [ngStyle]="{
+            'background-image':
+              user !== undefined ? 'url(\'' + user.photoURL + '\')' : ''
+          }"
+          mat-card-avatar=""
+        ></div>
       </mat-card-header>
     </button>
   </mat-toolbar>
@@ -18,7 +33,8 @@
       style="width: 50%;height:-webkit-fill-available;display: inline-flex;flex-direction: column"
     ></app-editor>
     <app-gallery
-      [user]="user" style="width: 50%;height:-webkit-fill-available;background-color: whitesmoke;display: inline-block;"
+      [user]="user"
+      style="width: 50%;height:-webkit-fill-available;background-color: whitesmoke;display: inline-block;"
     ></app-gallery>
   </section>
 </span>

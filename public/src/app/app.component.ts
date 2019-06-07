@@ -36,6 +36,11 @@ export class AppComponent {
     });
   }
 
+  downloadJS() {
+    //this.lingS.downloadFile("/../assets/scripts/fingerlings.js", "fingerlings");
+    this.lingS.compile(1);
+  }
+
   logout(): void {
     this.authService.logout().then(() => {
       this.is_login = this.authService.isLoggedIn;

@@ -1,5 +1,5 @@
-<h3>{{ data.id ? data.id + " - " : "" }}Función: {{ data.name }}</h3>
-<mat-card style="background-color: whitesmoke;margin-bottom: 2%;padding: 5px">
+<h3>{{ data.id ? data.id + " - " : "" }}Función: {{ data.name }} <b *ngIf="data.name == ''">Sin nombre</b></h3>
+<mat-card *ngIf="data.desc.trim()!=''" style="background-color: whitesmoke;margin-bottom: 2%;padding: 5px">
   <i>{{ data.desc }}</i>
 </mat-card>
 <ngx-codemirror
@@ -14,6 +14,18 @@
   style="margin-bottom: 5%"
 ></ngx-codemirror>
 <h3 *ngIf="(data.tags == '' ? [] : data.tags.split(' ')).length != 0">Tags</h3>
+<mat-chip-list #chipList>
+  <mat-chip
+    *ngFor="let item of data.tags == '' ? [] : data.tags.split(' ')"
+    [selectable]="true"
+    [removable]="true"
+    [style.background-color]="getColor(item)"
+    [style.color]="contrast(item)"
+  >
+    {{ item }}
+  </mat-chip>
+</mat-chip-list>
+<!--
 <span *ngFor="let item of data.tags == '' ? [] : data.tags.split(' ')">
   <mat-card
     [style.background-color]="getColor(item)"
@@ -23,6 +35,7 @@
     {{ item }}
   </mat-card>
 </span>
+-->
 <h3 *ngIf="Object.keys(data.deps).length != 0">Dependencias:</h3>
 <span *ngFor="let item of Object.keys(data.deps)">
   <mat-card
@@ -43,6 +56,6 @@
 >
   Copiar Sólo Función
 </button>
-<button mat-button style="margin-left: auto; display: flex" color="primary">
+<button *ngIf="data.id" mat-button style="margin-left: auto; display: flex" color="primary" (click)="compile()">
   Compilar librería
 </button>

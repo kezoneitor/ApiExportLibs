@@ -18,7 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { MatChipsModule } from '@angular/material/chips';
 
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import 'codemirror/mode/javascript/javascript';
@@ -76,6 +76,7 @@ const firebaseConfig = {
     AngularFireAuthModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatChipsModule,
   ],
   providers: [
     LingsService,

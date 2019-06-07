@@ -45,5 +45,32 @@ export class LingsService {
     return this.http.get<Lings[]>(`${this.php_server}/search_lib_function.php/?category=${category}&parameters=${parameters}`);
   }
 
+  downloadFile(path, name) {
+    let link = document.createElement('a');
+    link.setAttribute('type', 'hidden');
+    link.href = path;
+    link.download = name;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
 
+  async compile(id) {
+    let name = await this.getNameByID(id);
+    console.log(name);
+    if (!name) return;
+    this.http.get(`${this.php_server}/import.php?code=${id}`, { responseType: 'text' as 'json' }).subscribe({
+      next: (code: string) => {
+        let link = document.createElement('a');
+        link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(code);
+        link.setAttribute('type', 'hidden');
+        link.download = name + '.js';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }, error: msg => {
+        console.log(msg);
+      }
+    });
+  }
 }

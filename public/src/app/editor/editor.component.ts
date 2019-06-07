@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatChipInputEvent } from '@angular/material';
 import { FunctionViewComponent, functionData, getColor, contrast } from '../function-view/function-view.component';
 import { LingsService } from '../services/lings.service';
 import { SearchLibComponent } from '../search-lib/search-lib.component';
+import { SPACE, COMMA, ENTER } from '@angular/cdk/keycodes';
 
 interface requestdata {
   name: string,
@@ -22,6 +23,7 @@ export class EditorComponent implements OnInit {
   Object = Object;
   contrast = contrast;
   getColor = getColor;
+  tagsKeyCodes = [SPACE, ENTER, COMMA];
   editor: functionData = {
     name: "",
     desc: "",
@@ -63,8 +65,27 @@ export class EditorComponent implements OnInit {
       this.updateView();
     }, 0)
   }
-  removeDep(dependencia) {
+  removeDep(dependencia){
     delete (this.editor.deps[dependencia]);
+  }
+  removeTag(tag: string) {
+    let tags:string[] = this.editor.tags.split(' ');
+    tags.splice(tags.indexOf(tag) , 1);
+    this.editor.tags = tags.join(' ').trim();
+  }
+  addTag(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.editor.tags += ` ${value.trim()}`;
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
   }
   addDep() {
     if (this.depID != "" && !this.editor.deps[this.depID]) {
@@ -90,7 +111,7 @@ export class EditorComponent implements OnInit {
       this.snackBar.open("Escriba una descripción", "Ok", { duration: 2000 });
     else if (this.editor.tags == "")
       this.snackBar.open("Incluye un tag", "Ok", { duration: 2000 });
-    else if (localStorage.getItem('user') != null){
+    else if (localStorage.getItem('user') != null) {
       let user = JSON.parse(localStorage.getItem('user')).uid;
       this.lingsAPI.AddFunction({
         code: "",
