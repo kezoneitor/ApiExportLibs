@@ -13,7 +13,6 @@ import { SearchLibComponent } from '../search-lib/search-lib.component';
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnChanges {
-  public myLings: Lings[];
   editor: functionData = {
     name: "",
     desc: "",
@@ -30,36 +29,38 @@ export class GalleryComponent implements OnChanges {
     public lings_services: LingsService,
     public dialog: MatDialog,
     public authService: AuthService
-  ) { }
+  ) {
+    console.log(this.user);
+  }
 
   ngOnInit() {
     //this.readAll();
   }
 
-  ngOnChanges() {
-    this.myListLings();
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(this.user);
+    if (changes["user"].currentValue != changes["user"].previousValue) {
+      this.updateMyLings();
+    }
   }
-  getLings(): Lings[] {
-    return SearchLibComponent ? SearchLibComponent.lings : [];
+  getMyLings() {
+    return LingsService ? LingsService.userFns : [];
   }
-  myListLings(): void {
+  updateMyLings() {
+    this.lings_services.LoadUserFns(this.user.uid);
+    /*
     this.myLings = [];
     if (this.user !== undefined) {
-      this.getLings().forEach(ling => {
-        if (ling.function_user === this.user.uid) {
-          this.myLings.push(ling);
+      this.lings_services.LoadUserFns(this.user.uid).subscribe({
+        next: result => {
+          this.myLings = result;
+        }, error: error => {
+          console.error(error);
         }
       });
     }
+    */
   }
-  /*
-    readAll() {
-      this.lings_services.LingsAll().subscribe((res: Lings[]) => {
-        SearchLibComponent.lings = res;
-        this.myListLings();
-      });
-    }
-  */
   view(id: string): void {
     this.editor = {
       name: "",
@@ -79,5 +80,17 @@ export class GalleryComponent implements OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       console.log(console.log(result));
     });
+
+  }
+  getLings(): Lings[] {
+    return LingsService ? LingsService.allFns : [];
   }
 }
+/*
+  readAll() {
+    this.lings_services.LingsAll().subscribe((res: Lings[]) => {
+      SearchLibComponent.lings = res;
+      this.myListLings();
+    });
+  }
+*/

@@ -1,13 +1,10 @@
 <?php
 
-<<<<<<< HEAD:php/search_lib_function.php
-=======
 //Tomar como un Javascript el echo del php
 header('Content-Type: application/javascript');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
->>>>>>> 830cd6dd92c6ad356d2b0a80666cb0907d7f6ba6:php/fingerlings/search_lib_function.php
 require 'connection.php';
 
       $lings = [];
@@ -83,21 +80,17 @@ require 'connection.php';
 
             $sql="select fg.code, fg.description, fg.f_name, fg.script, u.displayname, fg.tags, fg.dependencies, u.photourl from fingerlings fg INNER JOIN users u ON fg.function_user = u.uid" ." where ". $query;    // Se realiza la consulta respectiva
             //$sql = "select * from fingerlings where code = '2'";
-<<<<<<< HEAD:php/search_lib_function.php
-            $result= connection($sql);//pg_query($conn,$sql);
-            
+            $result=connection($sql);
 
             //echo($_result);
-=======
             $result=connection($sql);
->>>>>>> 830cd6dd92c6ad356d2b0a80666cb0907d7f6ba6:php/fingerlings/search_lib_function.php
 
             $i = 0;
 
             while ($row=pg_fetch_row($result))
             {     
                   
-                  echo("Funcion # ". '<br/>');
+                  //echo("Funcion # ". '<br/>');
                  // echo ("code : ". $row[0].'<br />');
                   /*echo ("description : ".$row[1].'<br />');
                   echo ("f_name : ".$row[2].'<br />');

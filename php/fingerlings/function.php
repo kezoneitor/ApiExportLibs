@@ -14,7 +14,7 @@ if (isset($_GET['code'])) {
     //Ejecutar conexión
     $result = connection($query);
     //Tomar los valores de la consulta [función, dependencias, nombre_función]
-    $script = pg_fetch_row($result);
+    $script = pg_fetch_object($result);
     //retornar la función junto con la validación
     echo json_encode($script);
 }
@@ -28,6 +28,30 @@ else if (isset($_GET['idToName'])) {
     $dependencies = pg_fetch_result($result, 0);
     //retornar las dependecncias
     echo json_encode($dependencies);
+} else if ($postdata = json_decode(file_get_contents("php://input"))) {
+    if (
+        isset($postdata->description) &&
+        isset($postdata->f_name) &&
+        isset($postdata->script) &&
+        isset($postdata->function_user) &&
+        isset($postdata->tags) &&
+        isset($postdata->dependencies)
+    ) {
+        $tagsStr = "{" . implode(",", $postdata->tags) . "}";
+        $depsStr = "{" . implode(",", $postdata->dependencies) . "}";
+
+        $sql = "insert into fingerlings(description, script, f_name, function_user, tags, dependencies) values 
+        ('$postdata->description',
+        '$postdata->script',
+        '$postdata->f_name',
+        '$postdata->function_user',
+        '$tagsStr',
+        '$depsStr')";
+        connection($sql) or die("false");
+        echo json_encode(true);
+    } else {
+        echo json_encode(false);
+    }
 }
 //No detectó ningún parámetro
 else {

@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { LingsService } from '../services/lings.service';
+import { Lings } from '../models/Lings';
 export interface functionData {
   name: string,
   code: string,
@@ -70,13 +71,21 @@ export class FunctionViewComponent implements OnInit {
   loadView(id) {
     //Aquí cargo los datos de la función
     this.lingsAPI.getCode(id)
-      .then((code) => {
-        this.data.fullcode = code[3];
-        this.data.desc = code[1];
-        this.data.name = code[2];
+      .then((code: Lings) => {
+        this.data.fullcode = code.script;
+        this.data.desc = code.description;
+        this.data.name = code.f_name;
 
-        this.data.tags =((code[5].substr(1, code[5].length - 2)).split(",")).join(" ");
+        this.data.tags = ((code.tags.toString().substr(1, code.tags.toString().length - 2)).split(",")).join(" ");
+        let deps: string[] = code.dependencies ? ((code.dependencies.toString().substr(1, code.dependencies.toString().length - 2)).split(",")) : [];
         console.log(this.data)
+        console.log(deps);
+        deps.forEach(async dep => {
+          if (dep == "") return;
+          let name = await this.lingsAPI.getNameByID(dep);
+          if (name)
+            this.data.deps[dep] = name;
+        })
       })
       .catch((error) => {
         console.log("Hubo un error")
