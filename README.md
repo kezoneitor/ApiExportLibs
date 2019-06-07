@@ -25,9 +25,6 @@ Contiene la función de crear funciones de forma dinámica(Sujeto a cambios, se ac
 	
 	Nota: Dentro del archivo se detalla mejor el funcionamiento de cada una de las funciones
 	
--> fingerlings-min.js
-	descripción: Este archivo es la versión comprimida de fingerlings.js
-	
 # folder php
 
 -> search.php: 

@@ -13,15 +13,14 @@ var check;
  */
 function implement_lib(code, check) {
       let xhttp = new XMLHttpRequest();
-      //let url = `http://leoviquez.com:8080/fingerlings/?code=${code}`;
-      let url = `http://localhost/fingerlings/?code=${code}`;
+      let url = `http://leoviquez.com:8080/fingerlings/import.php?code=${code}`;
       url += (check != undefined) ? `&check=${check}` : "";
       xhttp.open("GET", url, true);
       xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                   if (this.responseText != "") {
                         var script = document.createElement("script");
-                        script.setAttribute('type', 'module');
+                        check != "" ? script.setAttribute('type', 'module') : false;
                         script.innerHTML = this.responseText;
                         if (document.getElementsByTagName("head") != undefined) {
                               document.getElementsByTagName("head")[0].appendChild(script);
@@ -48,8 +47,7 @@ function implement_lib(code, check) {
 function search_deps(code) {
       var deps;
       let xhttp = new XMLHttpRequest();
-      xhttp.open("GET", `http://leoviquez.com:8080/fingerlings/?dependencies=${code}`, false);
-      //xhttp.open("GET", `http://localhost/fingerlings/?dependencies=${code}`, false);
+      xhttp.open("GET", `http://leoviquez.com:8080/fingerlings/import.php?dependencies=${code}`, false);
       xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                   if (this.responseText != "" && this.responseText != "{}") {

@@ -34,6 +34,6 @@ else if(isset($_GET['dependencies'])){
 }
 //No detectó ningún parámetro
 else {
-      echo "alert(The params did isn't detected);";
+      echo "alert(The params isn't detected);";
 }
 ?>

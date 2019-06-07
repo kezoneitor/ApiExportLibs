@@ -61,20 +61,6 @@ export class AuthService {
 
   async  loginWithGoogle() {
     await this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-    /*
-    if(this.isLoggedIn){
-      const credencials: User = JSON.parse(localStorage.getItem('user'));
-      const user: MUser = {
-        uid: credencials.uid,
-        email: credencials.email,
-        displayName: credencials.displayName,
-        photoURL: credencials.photoURL
-      }
-      this.lingsService.AddUser(user).subscribe((res: MUser) => {
-        console.log("PHP res>", res);
-      });
-    }
-    */
   }
 
   async  loginWithFacebook() {
