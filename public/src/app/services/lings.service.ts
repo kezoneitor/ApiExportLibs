@@ -18,10 +18,10 @@ export class LingsService {
     return this.http.get<Lings[]>(`${this.php_server}/read.php`);
   }
   async getNameByID(id:string): Promise<string>{
-    return await this.http.get<string>(`${this.php_server}/info.php?idToName=${id}`).toPromise();
+    return await this.http.get<string>(`${this.php_server}/function.php?idToName=${id}`).toPromise();
   }
   async getCode(id:string): Promise<string[]>{
-    return await this.http.get<string[]>(`${this.php_server}/info.php?code=${id}`).toPromise();
+    return await this.http.get<string[]>(`${this.php_server}/function.php?code=${id}`).toPromise();
   }
 
   AddUser(user: MUser): Observable<MUser> {
@@ -29,7 +29,7 @@ export class LingsService {
   }
 
   LingsSearch(category:string, parameters:string): Observable<Lings[]>{
-    return this.http.get<Lings[]>(`${this.php_server}/api/search_lib_function.php/?category=${category}&parameters=${parameters}`);
+    return this.http.get<Lings[]>(`${this.php_server}/search_lib_function.php/?category=${category}&parameters=${parameters}`);
   }
 
 
