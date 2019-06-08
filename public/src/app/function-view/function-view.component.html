@@ -54,8 +54,8 @@
   color="primary"
   (click)="copyFn()"
 >
-  Copiar Sólo Función
+  {{ whatCopy() }}
 </button>
-<button *ngIf="data.id" mat-button style="margin-left: auto; display: flex" color="primary" (click)="compile()">
+<button *ngIf="data.id" mat-button style="margin-left: auto; display: flex" color="primary" (click)="compile(data.code)">
   Compilar librería
 </button>

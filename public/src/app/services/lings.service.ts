@@ -12,16 +12,36 @@ export class LingsService {
   php_server = "http://localhost/fingerlings";
   public static userFns: Lings[] = [];
   public static allFns: Lings[] = [];
+  public static lengthFns: number = 0;
+  public static lengthUserFns: number = 0;
+  public static pageSize_U: number = 6;
+  public static pageIndex_U: number = 0;
+  public static pageSize: number = 6;
+  public static pageIndex: number = 0;
   constructor(private http: HttpClient) { }
 
   // Load all lings in db
-  async LingsAll() {
-    this.http.get<Lings[]>(`${this.php_server}/read.php`).toPromise().then((lings: Lings[]) => {
-      LingsService.allFns = lings
+  async LingsAll(lim:number, i:number) {
+    this.http.get<Lings[]>(`${this.php_server}/read.php?lim=${lim}&i=${i}`).toPromise().then((lings: Lings[]) => {
+      LingsService.allFns = lings;
     }).catch(error => { console.log(error) });
   }
-  async LoadUserFns(userID: string) {
-    this.http.get<Lings[]>(`${this.php_server}/read.php?idUser=${userID}`).toPromise().then((lings: Lings[]) => {
+
+  async Length() {
+    this.http.get<number>(`${this.php_server}/length.php`).toPromise().then((length: number) => {
+      LingsService.lengthFns = length;
+    }).catch(error => { console.log(error) });
+  }
+
+
+  async LengthUser(userID: string) {
+    this.http.get<number>(`${this.php_server}/length.php?UserID=${userID}`).toPromise().then((length: number) => {
+      LingsService.lengthUserFns = length;
+    }).catch(error => { console.log(error) });
+  }
+
+  async LoadUserFns(userID: string, lim: number, i: number) {
+    this.http.get<Lings[]>(`${this.php_server}/read.php?idUser=${userID}&lim=${lim}&i=${i}`).toPromise().then((lings: Lings[]) => {
       LingsService.userFns = lings
     }).catch(error => { console.log(error) });
   }

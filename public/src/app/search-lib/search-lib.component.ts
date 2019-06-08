@@ -34,7 +34,8 @@ e) Por nombre de función
   */
   constructor(private lingsService: LingsService) {
     LingsService.allFns = [];
-    this.lingsService.LingsAll();
+    this.lingsService.Length();
+    this.lingsService.LingsAll(LingsService.pageSize, LingsService.pageSize * LingsService.pageIndex);
   }
 
   ngOnInit() {

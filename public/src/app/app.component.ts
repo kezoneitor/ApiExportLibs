@@ -4,6 +4,7 @@ import { LogModalComponent } from './log-modal/log-modal.component';
 import { MUser } from "./models/mUser";
 import { AuthService } from "./auth/auth.service";
 import { LingsService } from './services/lings.service';
+import { InformationComponent } from './information/information.component';
 
 @Component({
   selector: 'app-root',
@@ -36,9 +37,12 @@ export class AppComponent {
     });
   }
 
-  downloadJS() {
-    //this.lingS.downloadFile("/../assets/scripts/fingerlings.js", "fingerlings");
-    this.lingS.compile(1);
+  openInfoDialog(): void {
+    const dialogRef = this.dialog.open(InformationComponent, {
+      width: '50%',
+      height: '95%'
+    });
+    dialogRef.afterClosed();
   }
 
   logout(): void {

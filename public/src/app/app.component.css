@@ -5,3 +5,60 @@
 .photo {
   background-size: cover;
 }
+
+.logo {
+  transform-origin: 50% 50%;
+  position: absolute;
+  padding: 2px;
+  width: 50px;
+  animation: jump .7s linear alternate-reverse .5s;
+}
+
+.logo:hover {
+  animation: swing 1.5s;
+  transition: all .5s;
+}
+
+.show_info {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  position: relative;
+  text-align: justify;
+  width: 50px;
+  height: 50px;
+  font-size: 0;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.show_info>span {
+		display:inline-block;
+		vertical-align:middle;
+    line-height:normal;
+    padding: 5px;
+}
+
+.show_info:hover {
+  background-color: white;
+  width: 150px;
+  font-size: 12pt;
+  transition: all 1s;
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(0deg);
+  }
+  
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes jump {
+  0%   {transform: translate3d(0,0,0) scale3d(1,1,1);}
+  20%  {transform: translate3d(0,30%,0) scale3d(.7,1.5,1);}
+  40% {transform: translate3d(0,100%,0) scale3d(1.5,.7,1);}
+  80%  {transform: translate3d(0,30%,0) scale3d(.7,1.5,1);}
+  100%   {transform: translate3d(0,0,0) scale3d(1,1,1);}
+}

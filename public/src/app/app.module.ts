@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatStepperModule } from "@angular/material/stepper";
 
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import 'codemirror/mode/javascript/javascript';
@@ -33,6 +34,7 @@ import { FunctionViewComponent } from './function-view/function-view.component';
 import { LingsService } from './services/lings.service';
 import { SearchLibComponent } from './search-lib/search-lib.component';
 import { LogModalComponent } from './log-modal/log-modal.component';
+import { InformationComponent } from './information/information.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCAZuZg6PIcormNxQ7wm2Td3ViXTLa3XWM",
@@ -52,8 +54,9 @@ const firebaseConfig = {
     FunctionViewComponent,
     SearchLibComponent,
     LogModalComponent,
+    InformationComponent,
   ],
-  entryComponents: [FunctionViewComponent, LogModalComponent],
+  entryComponents: [FunctionViewComponent, LogModalComponent, InformationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -77,6 +80,7 @@ const firebaseConfig = {
     MatSnackBarModule,
     MatSelectModule,
     MatChipsModule,
+    MatStepperModule,
   ],
   providers: [
     LingsService,

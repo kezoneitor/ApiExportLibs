@@ -133,8 +133,9 @@ export class EditorComponent implements OnInit {
             deps: {},
             id: undefined
           }
-          this.lingsAPI.LoadUserFns(user);
-          this.lingsAPI.LingsAll();
+          this.lingsAPI.LoadUserFns(user, LingsService.pageSize_U, LingsService.pageSize * LingsService.pageIndex_U);
+          this.lingsAPI.Length();
+          this.lingsAPI.LingsAll(LingsService.pageSize, LingsService.pageSize * LingsService.pageIndex);
           console.log(result);
         },
         error: error => {

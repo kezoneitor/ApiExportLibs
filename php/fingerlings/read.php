@@ -9,10 +9,22 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 include 'connection.php';
 //String query de ejecución
 $query = "";
-if (isset($_GET['idUser']))
-    $query = "select fingerlings.*, users.displayName, users.photourl from fingerlings inner join users on fingerlings.function_user = users.uid where users.uid = '" . $_GET['idUser'] . "'";
-else
-    $query = "select fingerlings.*, users.displayName, users.photourl from fingerlings inner join users on fingerlings.function_user = users.uid";
+if (isset($_GET['idUser'])){
+    if(isset($_GET['lim']) && isset($_GET['i'])){
+        $query = "select fingerlings.*, users.displayName, users.photourl from fingerlings inner join users on fingerlings.function_user = users.uid where users.uid = '" . $_GET['idUser'] . "' limit ".$_GET['lim']." offset ".$_GET['i']." ";
+    }
+    else{
+        $query = "select fingerlings.*, users.displayName, users.photourl from fingerlings inner join users on fingerlings.function_user = users.uid where users.uid = '" . $_GET['idUser'] . "'";
+    }
+}
+else{
+    if(isset($_GET['lim']) && isset($_GET['i'])){
+        $query = "select fingerlings.*, users.displayName, users.photourl from fingerlings inner join users on fingerlings.function_user = users.uid limit ".$_GET['lim']." offset ".$_GET['i']." ";
+    }
+    else{
+        $query = "select fingerlings.*, users.displayName, users.photourl from fingerlings inner join users on fingerlings.function_user = users.uid";
+    }
+}
 //Ejecutar conexión
 $result = connection($query);
 //Tomar los valores de la consulta [función, dependencias, nombre_función]

@@ -1,7 +1,10 @@
 <span style="height: 100vh;width: 100%; display: inline-block;overflow:auto">
   <mat-toolbar color="primary">
+    <div class="show_info" (click)="openInfoDialog()"> 
+      <img src="../assets/fingerling.svg" class="logo" alt="Logo" srcset="">
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Information</span>
+    </div>
     <span>Fingerlings</span>
-    <button mat-button (click)="downloadJS()">Descarga la librería!</button>
     <span style="flex: 1 1 auto"></span>
     <app-search-lib style="width: 70%"></app-search-lib>
     <button
@@ -10,9 +13,9 @@
       (click)="openDialog()"
       *ngIf="!is_login"
     >
-      <mat-icon aria-hidden="false" aria-label="User verified icon"
-        >perm_identity</mat-icon
-      >
+      <mat-icon aria-hidden="false" aria-label="User verified icon">
+        perm_identity
+      </mat-icon>
     </button>
     <button mat-icon-button id="log_icon" (click)="logout()" *ngIf="is_login">
       <mat-card-header _ngcontent-hpu-c6="" class="mat-card-header">

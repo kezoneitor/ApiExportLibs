@@ -119,9 +119,13 @@ export class FunctionViewComponent implements OnInit {
   }
 
   copyFn() {
-    this.copyToClipboard(this.data.fullcode);
+    this.copyToClipboard(this.data.id ? `http://leoviquez.com:8000/fingerlings/importer.php?code=${this.data.id}`:this.data.fullcode);
     this.snackBar.open("Copiado al portapapeles", "Ok", { duration: 2000 })
   }
+  whatCopy(){
+    return this.data.id ? "Copiar URL" : "Copiar Sólo Función";
+  }
+
   ngOnInit() {
   }
 

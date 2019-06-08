@@ -1,10 +1,10 @@
 <mat-tab-group [backgroundColor]="'accent'">
   <mat-tab label="Funciones">
-    <mat-paginator [length]="getLings().length" [pageSize]="6"
-      *ngIf="getLings() !== undefined">
+    <mat-paginator [length]="getLengthLings()" [pageSize]="pageSize"
+      *ngIf="getLings() !== undefined" (page)="setPageLings($event)">
     </mat-paginator>
     <mat-grid-list cols="2" rowHeight="1:1">
-      <mat-grid-tile *ngFor="let ling of getLings()">
+      <mat-grid-tile *ngFor="let ling of listLings">
         <mat-card class="card">
           <mat-card-header>
             <div mat-card-avatar class="photo" [ngStyle]="{'background-image': 'url(\''+ling.photourl+'\')'}"></div>
@@ -23,11 +23,11 @@
     </mat-grid-list>
   </mat-tab>
   <mat-tab label="Mis funciones" *ngIf="user !== undefined">
-    <mat-paginator [length]="getMyLings().length" [pageSize]="6"
-      *ngIf="getLings() !== undefined">
+    <mat-paginator [length]="getLengthMyLings()" [pageSize]="pageSize"
+      *ngIf="getMyLings() !== undefined" (page)="setPageMyLings($event)">
     </mat-paginator>
     <mat-grid-list cols="2" rowHeight="1:1">
-      <mat-grid-tile *ngFor="let ling of getMyLings()">
+      <mat-grid-tile *ngFor="let ling of listMyLings">
         <mat-card class="card">
           <mat-card-header>
             <div mat-card-avatar class="photo" [ngStyle]="{'background-image': 'url(\''+ling.photourl+'\')'}"></div>
