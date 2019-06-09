@@ -1,9 +1,12 @@
-<mat-tab-group [backgroundColor]="'accent'">
+<mat-tab-group [backgroundColor]="'accent'" style="height: 100vh;">
   <mat-tab label="Funciones">
     <mat-paginator [length]="getLengthLings()" [pageSize]="pageSize"
       *ngIf="getLings() !== undefined" (page)="setPageLings($event)">
     </mat-paginator>
-    <mat-grid-list cols="2" rowHeight="1:1">
+    <div class="loading-container" *ngIf="loading">
+      <img src="../assets/fingerling.svg" class="logo" alt="Logo" srcset="">
+    </div>
+    <mat-grid-list cols="3" rowHeight="1:1">
       <mat-grid-tile *ngFor="let ling of listLings">
         <mat-card class="card">
           <mat-card-header>
@@ -15,7 +18,7 @@
           <mat-card-content>
             <p>{{ ling.description }}</p>
           </mat-card-content>
-          <mat-card-actions>
+          <mat-card-actions class="btn_action">
             <button mat-button id="{ ling.code }" (click)="view(ling.code)">Ver</button>
           </mat-card-actions>
         </mat-card>
@@ -26,7 +29,10 @@
     <mat-paginator [length]="getLengthMyLings()" [pageSize]="pageSize"
       *ngIf="getMyLings() !== undefined" (page)="setPageMyLings($event)">
     </mat-paginator>
-    <mat-grid-list cols="2" rowHeight="1:1">
+    <mat-grid-list cols="3" rowHeight="1:1">
+      <div class="loading-container" *ngIf="loading_u">
+        <img src="../assets/fingerling.svg" class="logo" alt="Logo" srcset="">
+      </div>
       <mat-grid-tile *ngFor="let ling of listMyLings">
         <mat-card class="card">
           <mat-card-header>

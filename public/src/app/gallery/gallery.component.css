@@ -1,7 +1,14 @@
-.example-card {
-  max-width: 400px;
+.card {
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
 }
-
+.btn_action {
+  display: flex;
+  margin-top: auto;
+  justify-content: flex-start;
+}
 .photo {
   background-size: cover;
 }

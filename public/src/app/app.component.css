@@ -40,19 +40,9 @@
 
 .show_info:hover {
   background-color: white;
-  width: 150px;
+  width: 180px;
   font-size: 12pt;
   transition: all 1s;
-}
-
-@keyframes swing {
-  0% {
-    transform: rotate(0deg);
-  }
-  
-  100% {
-    transform: rotate(-360deg);
-  }
 }
 
 @keyframes jump {

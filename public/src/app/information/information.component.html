@@ -1,103 +1,175 @@
-<div>
-  <h2>Descarga e implementación de la libreria fingerlings</h2>
-  <mat-horizontal-stepper>
-    <mat-step label="Descargar libreria" #stepper>
-      <h4>Descargar libreria</h4>      
-      <p>
-        En el siguiente botón se puede descargar la libreria fingerlings
-        con la cual puedes cargar la cantidad de funciones que guste.
-      </p>
-      <button mat-button style="background-color: #1DE9B6" matStepperNext (click)="downloadJS()">Descarga la
-        librería!</button>
-    </mat-step>
-    <mat-step label="Aceptar riesgo">
-      <h4>Aceptar riesgo</h4>      
-      <p>
-        Si aparece el mensaje que aparece a continuación, lo que debemos
-        hacer es dar click en "Descargar" e inmediatamente se descargará la libreria.
-      </p>
+<mat-tab-group>
+  <mat-tab label="Pasos para descargar libreria">
+    <div>
+      <h2>Descarga e implementación de la libreria fingerlings</h2>
+      <mat-horizontal-stepper>
+        <mat-step label="Descargar libreria" #stepper>
+          <h4>Descargar libreria</h4>
+          <p>
+            En el siguiente botón se puede descargar la libreria fingerlings
+            con la cual puedes cargar la cantidad de funciones que guste.
+          </p>
+          <button mat-button style="background-color: #1DE9B6" matStepperNext (click)="downloadJS()">Descarga la
+            librería!</button>
+        </mat-step>
+        <mat-step label="Aceptar riesgo">
+          <h4>Aceptar riesgo</h4>
+          <p>
+            Si aparece el mensaje que aparece a continuación, lo que debemos
+            hacer es dar click en "Descargar" e inmediatamente se descargará la libreria.
+          </p>
+          <mat-card>
+            <mat-card-content>
+              <img mat-card-image src="../../assets/download_libs/accept down.png" alt="">
+              <mat-card-actions>
+                <button mat-button matStepperPrevious>Atrás</button>
+                <button mat-button style="background-color: #1DE9B6" matStepperNext>Continuar</button>
+              </mat-card-actions>
+            </mat-card-content>
+          </mat-card>
+        </mat-step>
+        <mat-step label="Mover al proyecto">
+          <h4>Mover al proyecto</h4>
+          <p>
+            Luego debemos de copiar la libreria descargada en el proyecto
+            en el que se va a trabajar, como se muestre en el siguiente ejemplo;
+          </p>
+          <mat-card>
+            <mat-card-content>
+              <img mat-card-image src="../../assets/download_libs/copy.png" alt="" srcset="">
+              <mat-card-actions>
+                <button mat-button matStepperPrevious>Atrás</button>
+                <button mat-button style="background-color: #1DE9B6" matStepperNext>Continuar</button>
+              </mat-card-actions>
+            </mat-card-content>
+          </mat-card>
+        </mat-step>
+        <mat-step label="Implementar en el proyecto">
+          <h4>Implementar en el proyecto</h4>
+          <p>
+            Seguidamente se abre el proyecto en el que se desea trabajar para
+            implementar la libreria al proyecto, se puede hacer de la siguiente forma:
+          </p>
+          <mat-card>
+            <mat-card-content>
+              <img mat-card-image src="../../assets/download_libs/implementar.png" alt="">
+              <mat-card-actions>
+                <button mat-button matStepperPrevious>Atrás</button>
+                <button mat-button style="background-color: #1DE9B6" matStepperNext>Continuar</button>
+              </mat-card-actions>
+            </mat-card-content>
+          </mat-card>
+        </mat-step>
+        <mat-step label="Uso de la función">
+          <h4>Uso de la función</h4>
+          <p>
+            Finalmente se muestra como se debería de utilizar la función de la
+            libreria. Básicamente es escribir la función "fingerlings" y por parámetro
+            se escribe cada uno de los códigos que ofrece nuestra página web.
+          </p>
+          <mat-card>
+            <mat-card-content>
+              <img mat-card-image src="../../assets/download_libs/uso libreria}.png" alt="">
+              <mat-card-actions>
+                <button mat-button matStepperPrevious>Atrás</button>
+                <button mat-button style="background-color: #1DE9B6" (click)="stepper.reset()">Reiniciar</button>
+              </mat-card-actions>
+            </mat-card-content>
+          </mat-card>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+    <div>
+      <h2>Implementación por URL</h2>
       <mat-card>
         <mat-card-content>
-          <img mat-card-image src="../../assets/accept down.png" alt="">
-          <mat-card-actions>
-            <button mat-button matStepperPrevious>Atrás</button>
-            <button mat-button style="background-color: #1DE9B6" matStepperNext>Continuar</button>
-          </mat-card-actions>
+          <p>
+            De esta forma se debe seguir una estructura para importar la función
+            que se quiere y seguidamente se importaran las dependencias del mismo.
+            La estructura es la siguiente:
+          </p>
+          <img mat-card-image src="../../assets/url import.png" alt="">
+          <p>
+            En la URL se pueden especificar 2 parámetros "code" y "check" o simplemente
+            utilizar el primer parámetro, en el primero se coloca un integer que representa
+            el código de la libreria y el segundo parámetro para realizar especificicar una
+            función para modularizar los componentes por si existen 2 funciones con el mismo nombre.
+          </p>
+          <p>
+            También se puede copiar la URL en el botón que aparece al <strong>Ver</strong> una función.
+          </p>
+          <img mat-card-image src="../../assets/copy url.png" alt="">
         </mat-card-content>
       </mat-card>
-    </mat-step>
-    <mat-step label="Mover al proyecto">
-      <h4>Mover al proyecto</h4>
-      <p>
-        Luego debemos de copiar la libreria descargada en el proyecto
-        en el que se va a trabajar, como se muestre en el siguiente ejemplo;
-      </p>
-      <mat-card>
-        <mat-card-content>
-          <img mat-card-image src="../../assets/copy.png" alt="" srcset="">
-          <mat-card-actions>
-            <button mat-button matStepperPrevious>Atrás</button>
-            <button mat-button style="background-color: #1DE9B6" matStepperNext>Continuar</button>
-          </mat-card-actions>
-        </mat-card-content>
-      </mat-card>
-    </mat-step>
-    <mat-step label="Implementar en el proyecto">
-      <h4>Implementar en el proyecto</h4>
-      <p>
-        Seguidamente se abre el proyecto en el que se desea trabajar para
-        implementar la libreria al proyecto, se puede hacer de la siguiente forma:
-      </p>
-      <mat-card>
-        <mat-card-content>
-          <img mat-card-image src="../../assets/implementar.png" alt="">
-          <mat-card-actions>
-            <button mat-button matStepperPrevious>Atrás</button>
-            <button mat-button style="background-color: #1DE9B6" matStepperNext>Continuar</button>
-          </mat-card-actions>
-        </mat-card-content>
-      </mat-card>
-    </mat-step>
-    <mat-step label="Uso de la función">
-      <h4>Uso de la función</h4>
-      <p>
-        Finalmente se muestra como se debería de utilizar la función de la
-        libreria. Básicamente es escribir la función "fingerlings" y por parámetro
-        se escribe cada uno de los códigos que ofrece nuestra página web.
-      </p>
-      <mat-card>
-        <mat-card-content>
-          <img mat-card-image src="../../assets/uso libreria}.png" alt="">
-          <mat-card-actions>
-            <button mat-button matStepperPrevious>Atrás</button>
-            <button mat-button style="background-color: #1DE9B6" (click)="stepper.reset()">Reiniciar</button>
-          </mat-card-actions>
-        </mat-card-content>
-      </mat-card>
-    </mat-step>
-  </mat-horizontal-stepper>
-</div>
-<div>
-  <h2>Implementación por URL</h2>
-  <mat-card>
-    <mat-card-content>
-      <p>
-        De esta forma se debe seguir una estructura para importar la función
-        que se quiere y seguidamente se importaran las dependencias del mismo.
-        La estructura es la siguiente:
-      </p>
-      <img mat-card-image src="../../assets/url import.png" alt="">
-      <p>
-        En la URL se pueden especificar 2 parámetros "code" y "check" o simplemente 
-        utilizar el primer parámetro, en el primero se coloca un integer que representa
-        el código de la libreria y el segundo parámetro para realizar especificicar una
-        función para modularizar los componentes por si existen 2 funciones con el mismo nombre.
-      </p>
-      <p>
-        También se puede copiar la URL en el botón que aparece al <strong>Ver</strong> una función.
-      </p>
-      <img mat-card-image src="../../assets/copy url.png" alt="">
-    </mat-card-content>
-  </mat-card>
-    
-</div>
+
+    </div>
+  </mat-tab>
+  <mat-tab label="Pasos para crear una función">
+    <div>
+      <h2>Crear una función en nuestra página web</h2>
+      <mat-vertical-stepper>
+        <mat-step label="Iniciar sesión" #stepper>
+          <h4>Iniciar sesión</h4>
+          <p>
+            Para poder crear una función en nuestra página web deberá iniciar sesión con uno de los
+            siguientes métodos; Google o Facebook.
+          </p>
+          <button mat-button style="background-color: #1DE9B6" matStepperNext (click)="openDialog()">Iniciar
+            sesión</button>
+        </mat-step>
+        <mat-step label="Llenar los campos solicitados">
+          <h4>Llenar los campos solicitados</h4>
+          <p>
+            Seguidamente se dispondrá a llenar cada uno de los campos solicitados
+            con sus respectivas validaciones.
+
+          </p>
+          <ul>
+            <li> <strong>Nombre:</strong> Escribir el nombre de la función que desea. siguiendo las normas de
+              programación </li>
+            <br>
+            <li> <strong>Parámetros:</strong> Los parámetros deben escribirse según las normas de programación, es
+              decir, la forma
+              sencilla es la separación por "," pero puede utilizarse la forma "...parámetros" ejemplo. </li>
+            <br>
+            <li> <strong>Nuevos Tags:</strong> Para separar los tags se debe usar espaciado e inmediatamente se mostrará el tag
+              de la siguiente forma.</li>
+              <img mat-card-image src="../../assets/create_function/tags.png" alt="">
+            <br>
+            <li> <strong>Dependencias:</strong> La forma en la que se toman las dependencias es escribiendo el código de una
+              dependencia existente, por ejemplo; la número 1 que es calcular y presionamos en "Añadir" y así con cada una de ellas.</li>
+              <img mat-card-image src="../../assets/create_function/dependencias.png" alt="">
+            
+              <br>
+            <li> <strong>Enviar:</strong> Finalmente se presiona el botón enviar para agregar la función a la vista de todos.</li>
+          </ul>
+          <mat-card>
+            <mat-card-content>
+              <mat-card-actions>
+                <button mat-button matStepperPrevious>Atrás</button>
+                <button mat-button style="background-color: #1DE9B6" matStepperNext>Continuar</button>
+              </mat-card-actions>
+            </mat-card-content>
+          </mat-card>
+        </mat-step>
+        <mat-step label="Verlo">
+          <h4>Mis funciones</h4>
+          <p>
+            Luego podemos visualizar la función en la parte derecha de la página y más especificamente verlo en
+            "Mis funciones" o agregada en "Funciones" donde lo puede visualizar cualquier usuario y ver más detalles presionando
+            el botón <strong>Ver</strong>.
+          </p>
+          <mat-card>
+            <mat-card-content>
+              <img mat-card-image src="../../assets/create_function/reflejado.png" style="width: 50%" alt="" srcset="">
+              <mat-card-actions>
+                <button mat-button matStepperPrevious>Atrás</button>
+                <button mat-button style="background-color: #1DE9B6" (click)="onNoClick()">Terminar</button>
+              </mat-card-actions>
+            </mat-card-content>
+          </mat-card>
+        </mat-step>
+      </mat-vertical-stepper>
+    </div>
+  </mat-tab>
+</mat-tab-group>

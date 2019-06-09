@@ -9,3 +9,36 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     position: static;
     overflow: hidden !important;
 }
+
+.loading-container {
+    border-radius: 50%;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    left: 50%;
+    top: 25%;
+    transform: translate(-25%, 0);
+    background-color: #1DE9B6;
+    z-index: 1;
+}
+
+
+.loading-container > img{
+    border-radius: 50%;
+    margin: 5px;
+    background-color: #FFF;
+    width: 50px;
+    height: 50px;
+    z-index: 1;
+    animation: swing 1s infinite;
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(0deg);
+  }
+  
+  100% {
+    transform: rotate(-360deg);
+  }
+}

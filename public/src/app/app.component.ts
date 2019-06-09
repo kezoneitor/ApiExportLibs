@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, Output, OnChanges, SimpleChange} from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { LogModalComponent } from './log-modal/log-modal.component';
 import { MUser } from "./models/mUser";
@@ -15,6 +15,7 @@ export class AppComponent {
   title = 'public';
   public is_login = false;
   @Output() user: MUser;
+
   constructor(public dialog: MatDialog, public authService: AuthService, private lingS: LingsService) {
     this.is_login = this.authService.isLoggedIn;
     if (this.is_login) {
@@ -42,7 +43,12 @@ export class AppComponent {
       width: '50%',
       height: '95%'
     });
-    dialogRef.afterClosed();
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.is_login = result[1];
+        this.user = result[0];
+      }
+    });
   }
 
   logout(): void {

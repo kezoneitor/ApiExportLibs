@@ -30,12 +30,16 @@ export class GalleryComponent implements OnChanges {
   listLings: Lings[] = [];
   listMyLings: Lings[] = [];
   pageSize: number = 6;
+  loading: boolean = true;
+  loading_u: boolean = true;
   
   constructor(
     public lings_services: LingsService,
     public dialog: MatDialog,
     public authService: AuthService
-  ) { }
+  ) { 
+    this.pageSize = LingsService.pageSize;
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["user"].currentValue != changes["user"].previousValue) {
@@ -45,11 +49,16 @@ export class GalleryComponent implements OnChanges {
 
   setPageLings(evt:PageEvent): void {
     LingsService.pageIndex = evt.pageIndex;
-    this.lings_services.LingsAll(this.pageSize, evt.pageIndex * this.pageSize);
+    this.loading = true;
+    this.lings_services.LingsAll(this.pageSize, evt.pageIndex * this.pageSize).then(() => {
+      LingsService.allFns != [] ? this.loading = false : true;
+    });
   }
 
   getLings(): Lings[] {
+    this.loading = true;
     LingsService ? this.listLings = LingsService.allFns : [];
+    this.listLings != [] ? this.loading = false : this.loading = true;
     return this.listLings;
   }
 
@@ -60,7 +69,10 @@ export class GalleryComponent implements OnChanges {
 
   setPageMyLings(evt: PageEvent): void {
     LingsService.pageIndex = evt.pageIndex;
-    this.lings_services.LoadUserFns(this.user.uid, this.pageSize, evt.pageIndex * this.pageSize);
+    this.loading_u = true;
+    this.lings_services.LoadUserFns(this.user.uid, this.pageSize, evt.pageIndex * this.pageSize).then(() => {
+      LingsService.userFns != [] ? this.loading_u = false : true;
+    });
   }
 
   getMyLings(): Lings[] {
@@ -75,8 +87,11 @@ export class GalleryComponent implements OnChanges {
 
   updateMyLings() {
     if (this.user != undefined){
-      this.lings_services.LoadUserFns(this.user.uid, this.pageSize, 0);
+      this.loading_u = true;
       this.lings_services.LengthUser(this.user.uid);
+      this.lings_services.LoadUserFns(this.user.uid, this.pageSize, 0).then(()=>{
+        this.loading_u = false; 
+      });
     }
   }
   view(id: string): void {

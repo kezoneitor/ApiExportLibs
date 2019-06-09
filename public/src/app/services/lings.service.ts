@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LingsService {
-  //php_server = "http://leoviquez.com:8080/fingerlings";
-  php_server = "http://localhost/fingerlings";
+  php_server = "http://leoviquez.com:8080/fingerlings";
+  //php_server = "http://localhost/fingerlings";
   public static userFns: Lings[] = [];
   public static allFns: Lings[] = [];
   public static lengthFns: number = 0;
@@ -24,7 +24,8 @@ export class LingsService {
   async LingsAll(lim:number, i:number) {
     this.http.get<Lings[]>(`${this.php_server}/read.php?lim=${lim}&i=${i}`).toPromise().then((lings: Lings[]) => {
       LingsService.allFns = lings;
-    }).catch(error => { console.log(error) });
+      return true;
+    }).catch(error => { console.log(error); return false});
   }
 
   async Length() {
@@ -43,7 +44,8 @@ export class LingsService {
   async LoadUserFns(userID: string, lim: number, i: number) {
     this.http.get<Lings[]>(`${this.php_server}/read.php?idUser=${userID}&lim=${lim}&i=${i}`).toPromise().then((lings: Lings[]) => {
       LingsService.userFns = lings
-    }).catch(error => { console.log(error) });
+      return true;
+    }).catch(error => { console.log(error); return false;});
   }
 
   async getNameByID(id: string): Promise<string> {
