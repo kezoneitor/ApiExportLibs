@@ -25,7 +25,8 @@ function implement_lib(code, check) {
                         if (document.getElementsByTagName("head") != undefined) {
                               document.getElementsByTagName("head")[0].appendChild(script);
                         } else {
-                              document.createElement("head").appendChild(script);
+                              let head =  document.createElement("head").appendChild(script);
+                              document.getRootNode.appendChild(head);
                         }
                   } else {
                         console.log(`library ${code} isn't exist`);

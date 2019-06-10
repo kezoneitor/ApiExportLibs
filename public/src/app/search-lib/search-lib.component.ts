@@ -42,18 +42,11 @@ e) Por nombre de función
   }
 
   realizarBusqueda() {
-
-    console.log(this.searchParameters);
-    console.log(this.selectedCategory);
-
     this.lingsService.LingsSearch(this.selectedCategory, this.searchParameters).subscribe((lings: Lings[]) => {
       LingsService.allFns = lings;
       console.log("LINGS OBTENIDAS");
       console.log(LingsService.allFns);
       console.log("LINGS OBTENIDAS");
     });
-
-    console.log("ffff");
   }
-
 }

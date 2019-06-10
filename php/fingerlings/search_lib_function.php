@@ -42,6 +42,21 @@ require 'connection.php';
 //                  echo($query);
   //                echo("<br>");
             }
+            else if (strcmp($category, 'code') == 0) {
+                  foreach ($parameters_ar as $key => $value) {
+                        
+                        //echo(strlen($value));
+
+                        if (strlen($value) > 0) { // Construyo el siguiente formato para la consulta
+                              //                     'valor'         ILIKE     ANY(tags)          OR
+
+                              $query = $query.$category."=". $value . $OR;
+                              //echo($value);
+                              //echo("<br>");
+                        }
+
+                  }
+            }
             else {
 
                   foreach ($parameters_ar as $key => $value) { // Si se busca por el resto de opciones
@@ -71,11 +86,10 @@ require 'connection.php';
       if(isset($_GET['category']) && isset($_GET['parameters'])){
             
             //$table_name = 'fingerlings';<
-
+            
             // Se prepara la consulta en base a la categoría y los parámetros
             $query = prepararConsulta($_GET['category'],$_GET['parameters']);
-            
-          //  echo ($query. '<br/>');
+            //  echo ($query. '<br/>');
             //echo ('<br/>');
 
             $sql="select fg.code, fg.description, fg.f_name, fg.script, u.displayname, fg.tags, fg.dependencies, u.photourl from fingerlings fg INNER JOIN users u ON fg.function_user = u.uid" ." where ". $query;    // Se realiza la consulta respectiva
