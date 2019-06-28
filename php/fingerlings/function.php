@@ -48,12 +48,12 @@ else if (isset($_GET['idToName'])) {
         '$tagsStr',
         '$depsStr')";
         connection($sql) or die("false");
-        echo json_encode(true);
+        echo json_encode("true");
     } else {
-        echo json_encode(false);
+        echo json_encode("false");
     }
 }
 //No detectó ningún parámetro
 else {
-    echo "alert(The params did isn't detected);";
+    echo json_encode("alert(The params did isn't detected);");
 }

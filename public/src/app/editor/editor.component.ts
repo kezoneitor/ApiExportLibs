@@ -103,6 +103,7 @@ export class EditorComponent implements OnInit {
     }
   }
   send() {
+    console.log(this.editor);
     if (this.editor.name == "")
       this.snackBar.open("Escriba un nombre a su función", "Ok", { duration: 2000 });
     else if (this.editor.code == "")
